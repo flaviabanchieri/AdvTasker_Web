@@ -1,0 +1,34 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: -webkit-fill-available;/* Ajusta para ocupar a tela inteira */
+}
+
+.full-calendar-container {
+  width: 100%;
+  max-width: 100%; /* Garante que não haja limite */
+  height: -webkit-fill-available;
+}
+
+.fc {
+  font-size: 12px !important;
+}
+
+/* Ajusta a fonte nos títulos */
+.fc-toolbar-title {
+  font-size: 14px !important;
+  font-weight: bold;
+}
+
+/* Ajusta o tamanho dos botões de navegação */
+.fc-button {
+  font-size: 12px !important;
+  padding: 5px 10px;
+}
+
+.fc-day-today {
+  background-color: #d0ebff !important; /* Azul clarinho */
+  border: 1px solid #a0c4ff !important; /* Borda azul mais escura */
+}

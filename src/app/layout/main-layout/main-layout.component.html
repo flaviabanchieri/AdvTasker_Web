@@ -1,0 +1,10 @@
+<div class="page">
+  <app-sidebar [class.collapsed]="isSidebarCollapsed" (toggle)="isSidebarCollapsed = $event"></app-sidebar>
+  <div class="main-content" [class.collapsed]="isSidebarCollapsed">
+    <app-header></app-header>
+    <div class="content-wrapper">
+      <router-outlet #outlet="outlet"></router-outlet>
+      <!-- <app-footer *ngIf="showFooter"></app-footer> -->
+    </div>
+  </div>
+</div>

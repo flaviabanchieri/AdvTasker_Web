@@ -1,0 +1,152 @@
+/* Estilos gerais */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar {
+  height: 100vh;
+  background-color: #ffffff;
+  box-shadow: 4px 0 10px rgba(34, 35, 37, 0.1);
+  transition: width 0.3s ease;
+  overflow-y: auto;
+  position: fixed;
+  left: 0;
+  top: 0;
+  scrollbar-width: none;
+  width: 215px;
+}
+
+.sidebar.collapsed {
+  width: 60px; /* Largura reduzida quando recolhido */
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  padding: 10px 10px 0 10px;
+  transition: width 0.3s ease;
+  justify-content: center;
+}
+
+.sidebar.collapsed.profile{
+  padding: 20px 10px;
+}
+
+.menu ul li a {
+  text-decoration: none; /* Remove o sublinhado */
+  color: black; /* Define a cor padrão do texto */
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+
+.profile img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.toggle-sidebar {
+  background: none;
+  border: none;
+  color: rgb(13, 13, 13);
+  cursor: pointer;
+}
+
+.active-link ul li a{
+  color: white;
+}
+
+.active-link{
+  background-color: rgba(89, 153, 218, 0.397);
+  border-radius: 4px;
+}
+
+.active-link a span{
+  color: rgb(13, 99, 184);
+}
+
+.active-link a span:hover{
+  color: white;
+}
+
+.menu {
+  padding: 0 20px;
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu ul li {
+  margin-bottom: 6px;
+}
+
+.small{
+  font-size: 10px;
+  color: darkslategrey;
+  padding: 5px 0;
+}
+
+.menu ul li a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.menu ul li a:hover {
+  background-color: dodgerblue;
+  color: white;
+}
+
+.menu ul li a span.material-icons {
+  margin-right: 10px;
+}
+
+.material-icons{
+  font-size: 20px;
+}
+
+/* Estilos para o estado recolhido */
+.sidebar.collapsed .menu ul li a span:not(.material-icons){
+  display: none; /* Oculta o texto */
+}
+.sidebar.collapsed .profile img {
+  display: none;
+}
+
+.sidebar.collapsed .menu ul li a .profile{
+  justify-content: center; /* Centraliza os ícones */
+}
+
+.sidebar.collapsed .menu ul li a span.material-icons{
+  margin-right: 0;
+  padding-left:0;
+  padding-right:0;
+  display: flex;
+  justify-content: center;/* Remove a margem direita dos ícones */
+}
+
+.sidebar.collapsed .menu {
+  margin-right: 0;
+  padding-left:0;
+  padding-right:0;
+  display: flex;
+  justify-content: center;/* Remove a margem direita dos ícones */
+}
+
+.menu-divider {
+  border: none;
+  height: 1px;
+  background-color: #d3d3d3; /* Cinza claro */
+  margin: 10px 0;
+}
