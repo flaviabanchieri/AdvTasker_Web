@@ -6,7 +6,7 @@
     </button>
   </div>
   <nav class="menu">
-    <p *ngIf="!isCollapsed" class="small" >Escritório</p>
+    <p *ngIf="!isCollapsed" class="small">Escritório</p>
     <ul>
       <hr *ngIf="isCollapsed" class="menu-divider">
       <li [ngClass]="{ 'active-link': router.url.endsWith('/home') }">
@@ -15,37 +15,50 @@
           <p *ngIf="!isCollapsed">Dashboard</p>
         </a>
       </li>
-      <li [ngClass]="{ 'active-link': router.url.endsWith('/agenda') }">
+      <li [ngClass]="{ 'active-link': router.url.includes('/agenda') }">
         <a [routerLink]="'/agenda'">
           <span class="material-icons">calendar_today</span>
           <p *ngIf="!isCollapsed">Agenda</p>
         </a>
       </li>
-      <li>
-        <a [routerLink]="'/prazos'">
+      <li class="dropdown" [ngClass]="{ 'active-link': (router.url.includes('/prazos') || router.url === '/intimacao') }">
+        <a (click)="clickedMenu($event)" id="prazos">
           <span class="material-icons">event</span>
           <p *ngIf="!isCollapsed">Prazos</p>
+          <span *ngIf="!drop('prazos')" class="material-icons-round dropdown-arrow">keyboard_arrow_right</span>
+          <span *ngIf="drop('prazos')" class="material-icons-round dropdown-arrow">keyboard_arrow_down</span>
         </a>
+        <ul *ngIf="drop('prazos')" class="submenu">
+          <li><a routerLink="/prazos">Ver Prazos</a></li>
+          <li><a routerLink="/prazos/gerenciar">Gerenciar Prazos</a></li>
+          <li><a routerLink="/intimacao">Intimações</a></li>
+        </ul>
       </li>
-      <li>
-        <a [routerLink]="'/tarefas'">
+      <li class="dropdown" [ngClass]="{ 'active-link': (router.url.includes('/tarefas')) }">
+        <a (click)="clickedMenu($event)" id="tarefas">
           <span class="material-icons">assignment</span>
           <p *ngIf="!isCollapsed">Tarefas</p>
+          <span *ngIf="!drop('tarefas')" class="material-icons-round dropdown-arrow">keyboard_arrow_right</span>
+          <span *ngIf="drop('tarefas')" class="material-icons-round dropdown-arrow">keyboard_arrow_down</span>
         </a>
+        <ul *ngIf="drop('tarefas')" class="submenu">
+          <li><a routerLink="/tarefas">Minhas Tarefas</a></li>
+          <li><a routerLink="/tarefas/gerenciar">Gerenciar Tarefas</a></li>
+        </ul>
       </li>
-      <li>
+      <li [ngClass]="{ 'active-link': router.url.includes('/clientes') }">
         <a [routerLink]="'/clientes'">
           <span class="material-icons">people</span>
           <p *ngIf="!isCollapsed">Clientes</p>
         </a>
       </li>
-      <li>
+      <li [ngClass]="{ 'active-link': router.url.includes('/processos') }">
         <a [routerLink]="'/processos'">
           <span class="material-icons">description</span>
           <p *ngIf="!isCollapsed">Processos</p>
         </a>
       </li>
-      <li>
+      <li [ngClass]="{ 'active-link': router.url.includes('/relatorios') }">
         <a [routerLink]="'/relatorios'">
           <span class="material-icons">assessment</span>
           <p *ngIf="!isCollapsed">Relatórios</p>
@@ -53,20 +66,21 @@
       </li>
       <hr *ngIf="isCollapsed" class="menu-divider">
       <p *ngIf="!isCollapsed" class="small">Utilitários</p>
-      <li>
-        <a [routerLink]="'/notificacoes'">
-          <span class="material-icons">notifications</span>
-          <p *ngIf="!isCollapsed">Notificações</p>
+      <li [ngClass]="{ 'active-link': router.url.includes('/notificacoes') }">
+        <a class="notificacoes" [routerLink]="'/notificacoes'">
+          <div style="display: flex;">          <span class="material-icons">notifications</span>
+            <p *ngIf="!isCollapsed">Notificações</p></div>
+          <span *ngIf="!isCollapsed"  class="notification-counter">3</span>
         </a>
       </li>
-      <li>
+      <li [ngClass]="{ 'active-link': router.url.includes('/explore') }">
         <a [routerLink]="'/explore'">
           <span class="material-icons">explore</span>
           <p *ngIf="!isCollapsed">Explore</p>
         </a>
       </li>
       <li>
-        <a [routerLink]="'/sair'">
+        <a [routerLink]="'/login'">
           <span class="material-icons">exit_to_app</span>
           <p *ngIf="!isCollapsed">Sair</p>
         </a>

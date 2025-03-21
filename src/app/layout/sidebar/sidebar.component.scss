@@ -30,20 +30,9 @@ body {
   justify-content: center;
 }
 
-.sidebar.collapsed.profile{
+.sidebar.collapsed .profile {
   padding: 20px 10px;
 }
-
-.menu ul li a {
-  text-decoration: none; /* Remove o sublinhado */
-  color: black; /* Define a cor padrão do texto */
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border-radius: 4px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
 
 .profile img {
   height: 40px;
@@ -55,23 +44,6 @@ body {
   border: none;
   color: rgb(13, 13, 13);
   cursor: pointer;
-}
-
-.active-link ul li a{
-  color: white;
-}
-
-.active-link{
-  background-color: rgba(89, 153, 218, 0.397);
-  border-radius: 4px;
-}
-
-.active-link a span{
-  color: rgb(13, 99, 184);
-}
-
-.active-link a span:hover{
-  color: white;
 }
 
 .menu {
@@ -88,7 +60,7 @@ body {
   margin-bottom: 6px;
 }
 
-.small{
+.small {
   font-size: 10px;
   color: darkslategrey;
   padding: 5px 0;
@@ -98,9 +70,10 @@ body {
   display: flex;
   align-items: center;
   text-decoration: none;
+  color: black;
   padding: 10px;
   border-radius: 4px;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .menu ul li a:hover {
@@ -108,40 +81,80 @@ body {
   color: white;
 }
 
-.menu ul li a span.material-icons {
-  margin-right: 10px;
+.menu ul li a:hover .material-icons {
+  color: white;
 }
 
-.material-icons{
+.menu ul li a span.material-icons {
+  margin-right: 10px;
+  color: inherit; /* Herda a cor do pai */
+}
+
+.material-icons {
   font-size: 20px;
 }
 
+.dropdown {
+  position: relative;
+}
+
+.dropdown-arrow {
+  margin-left: auto;
+  transition: transform 0.3s;
+  color: #858585;
+  cursor: pointer;
+}
+
+.dropdown.open .dropdown-arrow-tarefas {
+  transform: rotate(90deg);
+}
+
+.submenu {
+  list-style: none;
+  padding: 0 !important;
+  margin-left: 20px !important;
+  color: #525252;
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.submenu li a {
+  padding: 6px !important;
+  color: inherit; /* Mantém a cor padrão */
+}
+
+.submenu li a:hover {
+  background-color: transparent !important; /* Remove o hover no submenu */
+  color: inherit !important; /* Mantém a cor padrão */
+}
+
 /* Estilos para o estado recolhido */
-.sidebar.collapsed .menu ul li a span:not(.material-icons){
+.sidebar.collapsed .menu ul li a span:not(.material-icons) {
   display: none; /* Oculta o texto */
 }
+
 .sidebar.collapsed .profile img {
   display: none;
 }
 
-.sidebar.collapsed .menu ul li a .profile{
-  justify-content: center; /* Centraliza os ícones */
+.sidebar.collapsed .menu ul li a .dropdown-arrow {
+  display: none;
 }
 
-.sidebar.collapsed .menu ul li a span.material-icons{
+.sidebar.collapsed .menu ul li a span.material-icons {
   margin-right: 0;
-  padding-left:0;
-  padding-right:0;
+  padding-left: 0;
+  padding-right: 0;
   display: flex;
-  justify-content: center;/* Remove a margem direita dos ícones */
+  justify-content: center;
 }
 
 .sidebar.collapsed .menu {
   margin-right: 0;
-  padding-left:0;
-  padding-right:0;
+  padding-left: 0;
+  padding-right: 0;
   display: flex;
-  justify-content: center;/* Remove a margem direita dos ícones */
+  justify-content: center;
 }
 
 .menu-divider {
@@ -149,4 +162,60 @@ body {
   height: 1px;
   background-color: #d3d3d3; /* Cinza claro */
   margin: 10px 0;
+}
+
+.menu ul li a:hover .material-icons,
+.menu ul li a:hover .dropdown-arrow {
+  color: white; /* Garante que o ícone de seta também fique branco */
+}
+
+/* Estilos para o estado active-link (apenas no menu principal) */
+.menu > ul > li.active-link > a {
+  background-color: #e6f3ff; /* Azul clarinho */
+  color: dodgerblue;
+}
+
+.menu > ul > li.active-link > a .material-icons {
+  color: dodgerblue; /* Ícone fica com a cor dodgerblue */
+}
+
+/* Remove hover para itens ativos */
+.menu > ul > li.active-link > a:hover {
+  background-color: #e6f3ff; /* Mantém o fundo azul clarinho */
+  color: dodgerblue; /* Mantém a cor do texto */
+}
+
+.menu > ul > li.active-link > a:hover .material-icons {
+  color: dodgerblue; /* Mantém a cor do ícone */
+}
+
+/* Garante que o submenu não seja afetado pelo active-link */
+.submenu li a {
+  background-color: transparent !important; /* Remove o fundo */
+  color: inherit !important; /* Mantém a cor padrão */
+}
+
+.submenu li a:hover {
+  background-color: transparent !important; /* Remove o hover no submenu */
+  color: inherit !important; /* Mantém a cor padrão */
+}
+
+.notification-counter {
+  background-color: rgb(20, 111, 202); /* Fundo vermelho */
+  color: white; /* Texto branco */
+  font-size: 12px; /* Tamanho da fonte */
+  font-weight: bold; /* Texto em negrito */
+  padding: 2px 6px; /* Espaçamento interno */
+  border-radius: 4px; /* Deixa o fundo circular */
+  margin-left: 8px; /* Espaço entre o texto e o counter */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px; /* Largura mínima para garantir que fique circular */
+  height: 18px; /* Altura fixa */
+}
+
+.notificacoes{
+  display: flex;
+  justify-content: space-between;
 }
