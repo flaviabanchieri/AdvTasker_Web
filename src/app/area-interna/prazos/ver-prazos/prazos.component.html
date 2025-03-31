@@ -1,3 +1,43 @@
-<p>
-  prazos works!
-</p>
+<div class="prazos">
+  <div class="inline-calendar-card">
+    <mat-card>
+      <mat-calendar [(selected)]="selected"></mat-calendar>
+    </mat-card>
+    <p>Selected date: {{selected()}}</p>
+  </div>
+  <div class="agenda">
+    <table class="tasks">
+      <thead>
+        <tr>
+          <th class="col-num">Nº</th>
+          <th class="col-data">Processo</th>
+          <th class="col-cliente">Cliente</th>
+          <th class="col-diligencia">Diligência</th>
+          <th class="col-responsavel">Responsável</th>
+          <th class="col-prazo">Prazo Fatal</th>
+          <th class="col-status">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-num">1</td>
+          <td class="col-data">task.name</td>
+          <td class="col-cliente">task.name</td>
+          <td class="col-diligencia">task.details</td>
+          <td class="col-responsavel">task.responsible</td>
+          <td class="col-prazo">task.deadline</td>
+          <td class="col-status">
+            <select>
+              <option [value]="1">Pendente</option>
+              <option [value]="2">Ativo</option>
+              <option [value]="3">Concluído</option>
+              <option [value]="4">Remarcar</option>
+              <option [value]="5">Cancelado</option>
+            </select>
+          </td>
+        </tr>
+        <!-- Adicione mais linhas conforme necessário -->
+      </tbody>
+    </table>
+  </div>
+</div>

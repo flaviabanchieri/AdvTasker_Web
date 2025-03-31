@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
   nomeUsuario: string = 'Teste';
   emailUsuario: string = 'teste@gmail.com';
-  avatarUrl: string = 'https://via.placeholder.com/40';
+  avatarUrl: string = 'https://photo.com/1';
 
   constructor(private router: Router, private titleService: Title) { }
 

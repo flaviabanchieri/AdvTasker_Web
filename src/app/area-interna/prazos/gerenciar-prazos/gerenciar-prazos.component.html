@@ -1,3 +1,51 @@
-<p>
-  gerenciar-prazos works!
-</p>
+<div class="container">
+  <button (click)="abrirDialogoNovoPrazo()">Criar</button>
+  <div class="header-card">
+    <div class="metric-card">
+      <div class="metric-value">{{ totalPrazos }}</div>
+      <div class="metric-label">Quantidade de Prazos</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">{{ prazosAtrasados }}</div>
+      <div class="metric-label">Prazos Atrasados</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">{{ prazosFataisHoje }}</div>
+      <div class="metric-label">Prazos Fatais Hoje</div>
+    </div>
+  </div>
+
+  <mat-card class="prazos-list-card">
+    <mat-card-header>
+      <mat-card-title>Meus Prazos</mat-card-title>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content>
+      <div class="prazos-list">
+        <div class="prazo-item" *ngFor="let prazo of prazos; trackBy: trackById" [ngClass]="{'atrasado': isAtrasado(prazo)}">
+          <div class="prazo-info">
+            <h3>{{ prazo.titulo }}</h3>
+            <p>{{ prazo.descricao }}</p>
+            <span class="prazo-date">
+              {{ prazo.dataFinal | date:'dd/MM/yyyy' }}
+              <mat-icon *ngIf="isAtrasado(prazo)" class="warning-icon">warning</mat-icon>
+            </span>
+          </div>
+          <div class="prazo-actions">
+            <button mat-icon-button (click)="toggleConcluido(prazo)">
+              <mat-icon>{{ prazo.concluido ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+            </button>
+            <button mat-icon-button (click)="editarPrazo(prazo)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="excluirPrazo(prazo)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

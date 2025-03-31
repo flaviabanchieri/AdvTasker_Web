@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="section">
+    <div class="section-title">Dados do prazo</div>
+    <div class="row">
+      <input type="date" placeholder="Data da publicação">
+      <input type="number" placeholder="Dias">
+      <input type="number" placeholder="Dias antes">
+      <select>
+        <option>UF</option>
+        <option>SP</option>
+        <option>RJ</option>
+        <option>MG</option>
+      </select>
+    </div>
+    <div class="row">
+      <div>
+        <label>Prazo marcado para  </label>
+        <input type="date" placeholder="Prazo marcado para">
+      </div>
+      <div>
+        <label>Prazo fatal  </label>
+        <input type="date" placeholder="Prazo fatal">
+      </div>
+    </div>
+    <div class="row">
+      <select>
+        <option>Responsável</option>
+      </select>
+      <label class="toggle">
+        <input type="radio" name="tipo" checked> Cível
+      </label>
+      <label class="toggle">
+        <input type="radio" name="tipo"> Penal
+      </label>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Dados do processo</div>
+    <div class="row">
+      <input type="text" placeholder="Número do processo">
+      <input type="text" placeholder="Parte (Nome ou CPF)">
+    </div>
+    <textarea placeholder="Diligência" rows="3"
+      style="width: -webkit-fill-available; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+
+  </div>
+
+  <div class="button-container">
+    <button class="primary">Salvar</button>
+  </div>
+</div>

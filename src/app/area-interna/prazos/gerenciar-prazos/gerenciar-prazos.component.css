@@ -1,0 +1,78 @@
+.container {
+  padding: 24px;
+  max-width: 100%;
+  margin: auto;
+}
+
+.header-card {
+  margin-bottom: 24px;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.metric-card {
+  flex: 1;
+  padding: 16px;
+  border-radius: 8px;
+  background: #ffffff;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.metric-label {
+  font-size: 1rem;
+  color: #777;
+}
+
+.prazos-list-card {
+  border-radius: 12px;
+  width: 100%;
+}
+
+.prazo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  background: #f5f5f5;
+  border-radius: 6px;
+  margin: 8px 0;
+}
+
+.prazo-item.atrasado {
+  background: #ffebee;
+  border-left: 4px solid #d32f2f;
+}
+
+.prazo-info h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.prazo-date {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.prazo-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn{
+  display: flex;
+  padding: 10px;
+  background-color:deepskyblue;
+  width: fit-content;
+  border-radius: 10px;
+}
