@@ -74,6 +74,7 @@ export class SidebarComponent implements OnInit {
       this.toggleSidebar();
     }
 
+
     if (parentId === this.parentId) {
       this.parentId = ``;
     } else {
