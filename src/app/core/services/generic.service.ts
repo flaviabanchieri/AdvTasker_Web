@@ -1,0 +1,87 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, catchError, map, of } from 'rxjs';
+import { Helpers } from '../../helpers/helpers';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ApiService {
+  private readonly apiUrl = 'https://localhost:44360/api/';
+
+  constructor(private http: HttpClient) {}
+
+  getItems<T>(caminho: string): Observable<T> {
+    return this.http.get<T>(this.apiUrl + `${caminho}`, {
+      headers: Helpers.getHttpHeaders(),
+    });
+  }
+
+  getFiltro<T>(caminho: string, filtro: any): Observable<T> {
+    var filtros = this.prepararParametros(filtro);
+    console.log(filtros);
+    return this.http.get<T>(this.apiUrl + `${caminho}` + filtros, {
+      headers: Helpers.getHttpHeaders(),
+    });
+  }
+
+  postItems(caminho : string, objeto: any) {
+    console.log('entrou aqui')
+    return this.http
+      .post(this.apiUrl + `${caminho}`, Helpers.toJson(objeto), {
+        headers: Helpers.getHttpHeaders(),
+      })
+      .pipe(map((res) => res));
+  }
+
+  postItemsSemToken(caminho : string, objeto: any) {
+    return this.http
+      .post(this.apiUrl + `${caminho}`, Helpers.toJson(objeto), {
+        headers: Helpers.getHttpHeadersSemToken(),
+      })
+      .pipe(map((res) => res));
+  }
+
+  deleteItem(caminho: string, id: number) {
+    return this.http
+      .delete(`${this.apiUrl}${caminho}/${id}`, {
+        headers: Helpers.getHttpHeaders(),
+      })
+      .pipe(map((res) => res));
+  }
+
+  patchItem(caminho: string, body: any) {
+    return this.http
+      .patch(this.apiUrl + caminho, body, {
+        headers: Helpers.getHttpHeaders(),
+      })
+      .pipe(map((res) => res));
+  }
+
+  private prepararParametros(filtro: any): string {
+    if (!filtro) return '';
+
+    const paramsList = Object.keys(filtro)
+      .filter((param) => filtro[param] != null)
+      .map((param) => this.formatarParametro(param, filtro[param]))
+      .filter((param) => param !== '')
+      .join('&');
+
+    return paramsList ? `?${paramsList}` : '';
+  }
+
+  private formatarParametro(nome: string, valor: any): string {
+    if (valor == null) return '';
+
+    if (Array.isArray(valor)) {
+      if (valor.length === 0) return '';
+      return `${nome}=${valor.map((v) => encodeURIComponent(v)).join(',')}`;
+    }
+
+    if (typeof valor === 'boolean' || typeof valor === 'number') {
+      return `${nome}=${encodeURIComponent(valor.toString())}`;
+    }
+
+    return `${nome}=${encodeURIComponent(valor)}`;
+  }
+}

@@ -1,0 +1,27 @@
+<div class="form-container">
+  <h2>Cadastro do Escritório</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Nome do Escritório</mat-label>
+      <input matInput formControlName="nome">
+      <mat-error *ngIf="form.get('nome')?.hasError('required')">Campo obrigatório</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>CNPJ</mat-label>
+      <input matInput formControlName="cnpj" maxlength="14">
+      <mat-error *ngIf="form.get('cnpj')?.hasError('required')">Campo obrigatório</mat-error>
+      <mat-error *ngIf="form.get('cnpj')?.hasError('pattern')">CNPJ inválido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Tipo de Escritório</mat-label>
+      <mat-select formControlName="tipo">
+        <mat-option *ngFor="let tipo of tipos" [value]="tipo.value">{{ tipo.label }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('tipo')?.hasError('required')">Campo obrigatório</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Cadastrar</button>
+  </form>
+</div>

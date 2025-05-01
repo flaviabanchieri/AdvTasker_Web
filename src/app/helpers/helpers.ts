@@ -4,4 +4,19 @@ export class Helpers {
   static getHttpHeaders(): HttpHeaders {
     return new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + localStorage.getItem("token"));
   }
+
+  static getHttpHeadersSemToken(): HttpHeaders {
+    return new HttpHeaders().set('Content-Type', 'application/json');
+  }static toJson(model: any): any {
+    var json = JSON.stringify(model, this.removeNullValues);
+    console.log(json)
+    return json;
+
+  }
+
+  private static removeNullValues(key: any, value: any) {
+    if (value !== null) {
+      return value;
+    }
+  }
 }

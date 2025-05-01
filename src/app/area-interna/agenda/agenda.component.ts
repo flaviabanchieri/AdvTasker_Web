@@ -8,7 +8,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import ptBrLocale from '@fullcalendar/core/locales/pt-br'; // Importando o idioma
-import { SidebarService } from '../../services/sidebar.service';
+import { SidebarService } from '../../core/services/sidebar.service';
 import { RefObject } from '@fullcalendar/core/preact.js';
 
 

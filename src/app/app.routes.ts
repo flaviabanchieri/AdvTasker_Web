@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './area-externa/login/login.component';
 import { HomeComponent } from './area-interna/home/home.component';
-import { AuthGuard } from './auth/auth.guard';
+import { AuthGuard } from './core/auth/auth.guard';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { AgendaComponent } from './area-interna/agenda/agenda.component';
 import { CriarEditarAgendaComponent } from './area-interna/agenda/criar-editar-agenda/criar-editar-agenda.component';
@@ -20,6 +20,7 @@ import { ProcessosEditarComponent } from './area-interna/processos/processos-edi
 import { RelatorioDesempenhoComponent } from './area-interna/relatorios/relatorio-desempenho/relatorio-desempenho.component';
 import { ExplorarComponent } from './area-interna/explorar/explorar/explorar.component';
 import { NotificacaoComponent } from './area-interna/notificações/notificacao/notificacao.component';
+import { CadastroUsuarioComponent } from './area-externa/cadastro-usuario/cadastro-usuario.component';
 
 
 export const routes: Routes = [
@@ -51,6 +52,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'cadastro',
+    component: CadastroUsuarioComponent
   },
   {
     path: '404',

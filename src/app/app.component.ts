@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
-import { AuthService } from './auth/auth.service';
+import { AuthService } from './core/auth/auth.service';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -15,10 +15,8 @@ export class AppComponent implements OnInit {
   title = 'AdvTasker_Web';
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {
-    if (!this.authService.isAuthenticated()) {
-      this.router.navigate(['/login']);
-    }
+  ngOnInit() {
   }
+  
 }
 

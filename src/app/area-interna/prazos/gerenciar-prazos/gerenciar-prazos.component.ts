@@ -1,7 +1,7 @@
 import { CriarPrazosComponent } from './../criar-prazos/criar-prazos.component';
 import { RouterModule } from '@angular/router';
 
-import { Prazo } from './../../../models/prazo';
+import { Prazo } from '../../../core/models/prazo';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';

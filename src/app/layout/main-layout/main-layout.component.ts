@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "../header/header.component";
-import { SidebarService } from '../../services/sidebar.service';
+import { SidebarService } from '../../core/services/sidebar.service';
 
 @Component({
   selector: 'app-main-layout',
