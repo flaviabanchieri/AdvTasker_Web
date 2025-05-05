@@ -59,13 +59,9 @@ export class CadastroUsuarioComponent implements OnInit {
 
       this.apiService.postItemsSemToken('usuarios/cadastro', usuario).pipe(
         map((response: any) => {
-          console.log(response);
-          if (response.status === 201) {
-            this.authService.login(username, password);
-          }
         })
       ).subscribe({
-        next: () => { },
+        next: () => { this.authService.login(username, password).subscribe(); },
 
         error: (err) => {
           if (err.status === 409) {

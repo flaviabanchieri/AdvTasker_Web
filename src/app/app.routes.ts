@@ -21,6 +21,7 @@ import { RelatorioDesempenhoComponent } from './area-interna/relatorios/relatori
 import { ExplorarComponent } from './area-interna/explorar/explorar/explorar.component';
 import { NotificacaoComponent } from './area-interna/notificações/notificacao/notificacao.component';
 import { CadastroUsuarioComponent } from './area-externa/cadastro-usuario/cadastro-usuario.component';
+import { CadastroEscritorioComponent } from './area-interna/cadastro-escritorio/cadastro-escritorio.component';
 
 
 export const routes: Routes = [
@@ -30,6 +31,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'home', component: HomeComponent, data: { title: 'Painel' }},
+      { path: 'welcome', component: CadastroEscritorioComponent, data: { title: 'Bem-Vindo' }},
       { path: 'agenda', component: AgendaComponent, data: { title: 'Agenda' }},
       { path: 'agenda/editar/:id', component: CriarEditarAgendaComponent, data: { title: 'Agenda > Criar' } },
       { path: 'prazos', component: PrazosComponent, data: { title: 'Prazos' } },

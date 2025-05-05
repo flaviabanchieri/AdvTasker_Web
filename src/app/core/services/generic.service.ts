@@ -19,14 +19,12 @@ export class ApiService {
 
   getFiltro<T>(caminho: string, filtro: any): Observable<T> {
     var filtros = this.prepararParametros(filtro);
-    console.log(filtros);
     return this.http.get<T>(this.apiUrl + `${caminho}` + filtros, {
       headers: Helpers.getHttpHeaders(),
     });
   }
 
   postItems(caminho : string, objeto: any) {
-    console.log('entrou aqui')
     return this.http
       .post(this.apiUrl + `${caminho}`, Helpers.toJson(objeto), {
         headers: Helpers.getHttpHeaders(),

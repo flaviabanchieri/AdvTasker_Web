@@ -32,14 +32,12 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       const username = this.loginForm.get('user')?.value;
       const password = this.loginForm.get('password')?.value;
-      console.log(username, password)
-      if (this.authService.login(username, password)) {
-        // Login bem-sucedido
+      if (this.authService.login(username, password).subscribe()) {
       } else {
-        this.senhaIncorreta = true; // Exibe a mensagem de erro
+        this.senhaIncorreta = true; 
       }
     } else {
-      this.senhaIncorreta = true; // Exibe a mensagem de erro se o formulário for inválido
+      this.senhaIncorreta = true; 
     }
   }
 

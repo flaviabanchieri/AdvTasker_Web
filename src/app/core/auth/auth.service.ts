@@ -16,16 +16,19 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
     private apiService: ApiService
-  ) {}
+  ) { }
 
   login(email: string, senha: string): Observable<{ status: number; mensagem: string }> {
     const usuario = { id: 0, nome: '', email, senha };
 
-    return this.apiService.postItemsSemToken('usuarios/login', usuario).pipe(
+    console.log('entrou')
+    var loginRespose = this.apiService.postItemsSemToken('usuarios/login', usuario).pipe(
       map((response: any) => {
         const token = response.token;
+        const temEscritorio = response.usuario.usuarioEscritorio.lenght > 0;
         if (token) {
           localStorage.setItem('token', token);
+          this.router.navigate(['/login']);
         }
         return { status: 200, mensagem: 'Login bem-sucedido' };
       }),
@@ -34,6 +37,8 @@ export class AuthService {
         return of({ status: error.status, mensagem: error.error?.mensagem || 'Erro desconhecido' });
       })
     );
+    console.log(loginRespose);
+    return loginRespose;
   }
 
   logout() {
