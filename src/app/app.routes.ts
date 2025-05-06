@@ -30,9 +30,8 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: 'home', component: HomeComponent, data: { title: 'Painel' }},
-      { path: 'welcome', component: CadastroEscritorioComponent, data: { title: 'Bem-Vindo' }},
-      { path: 'agenda', component: AgendaComponent, data: { title: 'Agenda' }},
+      { path: 'home', component: HomeComponent, data: { title: 'Painel' } },
+      { path: 'agenda', component: AgendaComponent, data: { title: 'Agenda' } },
       { path: 'agenda/editar/:id', component: CriarEditarAgendaComponent, data: { title: 'Agenda > Criar' } },
       { path: 'prazos', component: PrazosComponent, data: { title: 'Prazos' } },
       { path: 'prazos/gerenciar', component: GerenciarPrazosComponent, data: { title: 'Prazos > Gerenciar' } },
@@ -59,6 +58,10 @@ export const routes: Routes = [
     path: 'cadastro',
     component: CadastroUsuarioComponent
   },
+  { path: 'bem-vindo', 
+    component: CadastroEscritorioComponent, 
+    canActivate: [AuthGuard],
+    data: { title: 'Bem-Vindo' } },
   {
     path: '404',
     component: ErrorPageComponent

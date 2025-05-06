@@ -26,9 +26,16 @@ export class AuthService {
       map((response: any) => {
         const token = response.token;
         const temEscritorio = response.usuario.usuarioEscritorio.lenght > 0;
+        console.log(response);
         if (token) {
           localStorage.setItem('token', token);
-          this.router.navigate(['/login']);
+
+          if (!temEscritorio) {
+            this.router.navigate(['/bem-vindo']);
+          } else {
+            this.router.navigate(['/home']);
+          }
+
         }
         return { status: 200, mensagem: 'Login bem-sucedido' };
       }),
