@@ -1,20 +1,45 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-
+import { ApiService } from '../../core/services/generic.service';
+import { MatDialog } from '@angular/material/dialog';
+import { WelcomeComponent } from '../welcome/Welcome.component';
+import { BlockUI, BlockUIModule, NgBlockUI, BlockUIService } from 'ng-block-ui';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  imports: [BlockUIModule ],
 })
 export class HomeComponent implements OnInit {
-
-  constructor(private router: Router) { }
+  
+  constructor(private router: Router, 
+    private apiService: ApiService, 
+    public dialog: MatDialog,
+    private blockUIService: BlockUIService 
+  ) { }
 
   ngOnInit() {
+    this.welcomeMessage()
   }
 
-  redirect(path: string){
+  redirect(path: string) {
     this.router.navigate([path])
+  }
+
+  welcomeMessage() {
+    this.blockUIService.start('home')
+    this.apiService.getItems('usuarios/ObterPrimeiroLogin').pipe(
+    ).subscribe({
+      next: (res) => {
+        if (res) {
+         this.dialog.open(WelcomeComponent, {
+            width: "auto",
+            height: "auto",
+          });
+        }
+        this.blockUIService.stop('home')
+      }
+    })
   }
 
 }

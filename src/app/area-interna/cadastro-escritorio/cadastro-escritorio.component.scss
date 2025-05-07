@@ -1,14 +1,229 @@
-.form-container {
-    max-width: 500px;
-    margin: auto;
+@media (min-width: 769px) {
+  .container {
+    display: flex;
+    font-family: 'Segoe UI', sans-serif;
+    position: relative;
+    background: linear-gradient(to bottom right, #2ecc71, #27ae60);
+
+    .left,
+    .right {
+      flex: 1;
+      padding: 40px;
+    }
+
+    .left {
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      border-top-right-radius: 150px; // <<-- AQUI
+      z-index: 2;
+      position: relative;
+      max-width: 20rem;
+      padding-right: 20rem;
+
+      .logo {
+        width: 120px;
+      }
+
+      h1 {
+        font-size: 24px;
+        color: #333;
+      }
+
+      label {
+        margin: 20px 0 5px;
+        font-weight: 500;
+        color: #444;
+      }
+
+
+    }
+
+    .right {
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      z-index: 1;
+      align-items: center;
+
+      h2 {
+        font-size: 26px;
+        margin-bottom: 15px;
+      }
+
+      p {
+        font-size: 16px;
+        margin-bottom: 40px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .illustration {
+        max-width: 90%;
+        height: auto;
+      }
+    }
+  }
+
+  .endereco {
+    display: flex;
+    gap: 20px;
+
+    .cidade {
+      flex: 2;
+    }
+
+    .estado {
+      flex: 1;
+    }
+  }
+
+  .dias-atendimento {
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    .dias-opcoes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      width: 30vw;
+
+      button {
+        padding: 8px 16px;
+        border: 2px solid #118f2d;
+        border-radius: 20px;
+        background-color: transparent;
+        color: #118f2d;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &.selected {
+          background-color: #118f2d;
+          color: #fff;
+        }
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+}
+
+button {
+  padding: 8px 16px;
+  border: 2px solid #118f2d;
+  border-radius: 6px;
+  background-color: transparent;
+  color: #118f2d;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &.selected {
+    background-color: #118f2d;
+    color: #fff;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    background-color: white;
+  }
+
+  .left {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    border-top-right-radius: 150px; // <<-- AQUI
+    z-index: 2;
+    position: relative;
     padding: 2rem;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+
+    .logo {
+      width: 120px;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #333;
+    }
+
+    label {
+      margin: 20px 0 5px;
+      font-weight: 500;
+      color: #444;
+    }
+
+
   }
-  
-  .full-width {
-    width: 100%;
-    margin-bottom: 16px;
+
+  .right {
+    display: none;
+
+    .illustration {
+      display: none;
+    }
+
+    h2 {
+      display: none;
+    }
   }
-  
+
+  .endereco {
+    flex-direction: column;
+    gap: 0;
+
+    .estado,
+    .cidade {
+      flex: none;
+    }
+  }
+
+  .dias-atendimento {
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    .dias-opcoes {
+      display: flex;
+      flex-wrap: wrap;
+
+      button {
+        padding: 8px 16px;
+        border: 2px solid #118f2d;
+        border-radius: 20px;
+        background-color: transparent;
+        color: #118f2d;
+        margin: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &.selected {
+          background-color: #118f2d;
+          color: #fff;
+        }
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+
+}

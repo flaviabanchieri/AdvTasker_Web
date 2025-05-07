@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -11,6 +11,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectChange } from '@angular/material/select';
 import { TipoEscritorio } from '../../core/enums/tipoEscritorio.enum';
+import { HttpClient } from '@angular/common/http';
+import { Estado } from '../../core/interfaces/Estado';
+import { EstadosCidadesService } from '../../core/services/estados-cidades.service';
 
 @Component({
   selector: 'app-cadastro-escritorio',
@@ -19,53 +22,74 @@ import { TipoEscritorio } from '../../core/enums/tipoEscritorio.enum';
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatOptionModule
+    FormsModule
   ],
   templateUrl: './cadastro-escritorio.component.html',
   styleUrls: ['./cadastro-escritorio.component.scss']
 })
 export class CadastroEscritorioComponent implements OnInit {
-  form!: FormGroup;
-
-  tipos = [
-    { label: 'Individual', value: TipoEscritorio.Individual },
-    { label: 'Sociedade', value: TipoEscritorio.Sociedade }
+  escritorioForm!: FormGroup;
+  estados: Estado[] = [];
+  siglas: string[] = []; // só as siglas
+  cidades: string[] = []; // cidades da sigla selecionada
+  siglaSelecionada: string = ''; // para usar no ngModel
+  diasSemana: string[] = [
+    'Domingo',
+    'Segunda-feira',
+    'Terça-feira',
+    'Quarta-feira',
+    'Quinta-feira',
+    'Sexta-feira',
+    'Sábado'
   ];
+  diasSelecionados: string[] = [];
 
-  constructor(
-    private fb: FormBuilder,
-    private api: ApiService,
-    private router: Router,
-    private toast: ToastrService
-  ) {}
+  constructor(private router: Router, private fb: FormBuilder, private http: HttpClient, private estadoService: EstadosCidadesService) {}
 
   ngOnInit(): void {
-    this.form = this.fb.group({
-      nome: ['', Validators.required],
-      cnpj: ['', [Validators.required, Validators.pattern(/^\d{14}$/)]],
-      tipo: ['', Validators.required],
+    this.initForms();
+    this.estadoService.obterEstadosECidades().subscribe((estados: Estado[]) => {
+      this.estados = estados;
+      this.siglas = estados.map(e => e.sigla); // só as siglas
     });
   }
 
-  onSubmit() {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-
-    this.api.postItems('escritorios/cadastro', this.form.value).subscribe({
-      next: () => {
-        this.toast.success('Escritório cadastrado com sucesso!');
-        this.router.navigate(['/dashboard']);
-      },
-      error: (err) => {
-        this.toast.error('Erro ao cadastrar escritório.');
-        console.error(err);
-      }
+  initForms(): void {
+    this.escritorioForm = this.fb.group({
+      nome: ['', Validators.required],
+      cnpj: ['', [Validators.required, Validators.pattern(/^\d{14}$/)]],
+      estado: ['', Validators.required],
+      cidade: ['', Validators.required],
     });
+
+  }
+
+  onSiglaChange(): void {
+    const estado = this.estados.find(e => e.sigla === this.siglaSelecionada);
+    this.cidades = estado ? estado.cidades : [];
+  }
+
+  finalizar(): void {
+    const payload = {
+      ...this.escritorioForm.value,
+    };
+
+    console.log('Onboarding finalizado com os dados:', payload);
+
+    // Aqui você pode chamar um serviço para salvar os dados no backend
+    // this.onboardingService.salvar(payload).subscribe(...)
+  }
+
+  toggleDia(dia: string): void {
+    const index = this.diasSelecionados.indexOf(dia);
+    if (index > -1) {
+      this.diasSelecionados.splice(index, 1);
+    } else {
+      this.diasSelecionados.push(dia);
+    }
+  }
+
+  proximoPasso(){
+    this.router.navigate(['/home']);
   }
 }

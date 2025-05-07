@@ -22,6 +22,7 @@ import { ExplorarComponent } from './area-interna/explorar/explorar/explorar.com
 import { NotificacaoComponent } from './area-interna/notificações/notificacao/notificacao.component';
 import { CadastroUsuarioComponent } from './area-externa/cadastro-usuario/cadastro-usuario.component';
 import { CadastroEscritorioComponent } from './area-interna/cadastro-escritorio/cadastro-escritorio.component';
+import { WelcomeComponent } from './area-interna/welcome/Welcome.component';
 
 
 export const routes: Routes = [
@@ -58,10 +59,18 @@ export const routes: Routes = [
     path: 'cadastro',
     component: CadastroUsuarioComponent
   },
-  { path: 'bem-vindo', 
-    component: CadastroEscritorioComponent, 
+  {
+    path: 'onboarding',
+    component: CadastroEscritorioComponent,
     canActivate: [AuthGuard],
-    data: { title: 'Bem-Vindo' } },
+    data: { title: 'Bem-Vindo' }
+  },
+  {
+    path: 'Bem-vindo',
+    component: WelcomeComponent,
+    canActivate: [AuthGuard],
+    data: { title: 'Bem-Vindo' }
+  },
   {
     path: '404',
     component: ErrorPageComponent

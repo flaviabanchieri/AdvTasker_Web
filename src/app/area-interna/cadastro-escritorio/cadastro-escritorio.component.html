@@ -1,27 +1,53 @@
-<div class="form-container">
-  <h2>Cadastro do Escritório</h2>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Nome do Escritório</mat-label>
-      <input matInput formControlName="nome">
-      <mat-error *ngIf="form.get('nome')?.hasError('required')">Campo obrigatório</mat-error>
-    </mat-form-field>
+<div class="container">
+  <div class="left">
+    <img src="AdvTasker.png" alt="Logo" class="logo" />
+    <h1>Vamos começar a trabalhar juntos</h1>
+    <div class="input-group">
+      <label for="fim">Qual é o nome do seu escritório</label>
+      <input type="text" placeholder="Nome do escritório">
+    </div>
+    <div class="input-group">
+      <label for="fim">CNPJ (Opcional)</label>
+      <input type="text" placeholder="CNPJ do escritório">
+    </div>
+    <div class="endereco">
+      <div class="input-group estado">
+        <label for="fim">Estado</label>
+        <select [(ngModel)]="siglaSelecionada" (change)="onSiglaChange()">
+          <option value="">Selecione um estado</option>
+          <option *ngFor="let sigla of siglas" [value]="sigla">{{ sigla }}</option>
+        </select>
+      </div>
+      <div class="input-group cidade">
+        <label for="fim">Cidade</label>
+        <select [disabled]="!cidades.length">
+          <option value="">Selecione uma cidade</option>
+          <option *ngFor="let cidade of cidades">{{ cidade }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="dias-atendimento">
+      <label>Quais dias você atende?</label>
+      <div class="dias-opcoes">
+        <button
+          *ngFor="let dia of diasSemana"
+          [class.selected]="diasSelecionados.includes(dia)"
+          (click)="toggleDia(dia)"
+          type="button"
+        >
+          {{ dia }}
+        </button>
+      </div>
+    </div>
+    <button class="btn" (click)="proximoPasso()">Próximo</button>    
+  </div>
 
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>CNPJ</mat-label>
-      <input matInput formControlName="cnpj" maxlength="14">
-      <mat-error *ngIf="form.get('cnpj')?.hasError('required')">Campo obrigatório</mat-error>
-      <mat-error *ngIf="form.get('cnpj')?.hasError('pattern')">CNPJ inválido</mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Tipo de Escritório</mat-label>
-      <mat-select formControlName="tipo">
-        <mat-option *ngFor="let tipo of tipos" [value]="tipo.value">{{ tipo.label }}</mat-option>
-      </mat-select>
-      <mat-error *ngIf="form.get('tipo')?.hasError('required')">Campo obrigatório</mat-error>
-    </mat-form-field>
-
-    <button mat-raised-button color="primary" type="submit">Cadastrar</button>
-  </form>
+  <div class="right">
+    <h2>Bem-vindo a AdvTasker! 🚀</h2>
+    <p>
+      Parabéns! Agora você faz parte da comunidade AdvTasker. Desfrute de recursos
+      exclusivos e uma experiência incrível.
+    </p>
+    <img src="welcome.svg" alt="Welcome" class="illustration" />
+  </div>
 </div>

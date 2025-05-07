@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, map, catchError, of } from 'rxjs';
 import { ApiService } from '../services/generic.service';
 import { Usuario } from '../models/usuario';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
@@ -15,23 +16,22 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private toastService: ToastrService
   ) { }
 
   login(email: string, senha: string): Observable<{ status: number; mensagem: string }> {
     const usuario = { id: 0, nome: '', email, senha };
 
-    console.log('entrou')
     var loginRespose = this.apiService.postItemsSemToken('usuarios/login', usuario).pipe(
       map((response: any) => {
         const token = response.token;
-        const temEscritorio = response.usuario.usuarioEscritorio.lenght > 0;
-        console.log(response);
+        const temEscritorio = response.usuario.usuarioEscritorio.length > 0;
         if (token) {
           localStorage.setItem('token', token);
-
+          localStorage.setItem('primeiroLogin', response.usuario.primeiroLogin);
           if (!temEscritorio) {
-            this.router.navigate(['/bem-vindo']);
+            this.router.navigate(['/onboarding']);
           } else {
             this.router.navigate(['/home']);
           }
@@ -41,10 +41,13 @@ export class AuthService {
       }),
       catchError((error: HttpErrorResponse) => {
         console.error('Erro na requisição:', error);
+
+        if(error.status === 401) {
+          this.toastService.error('', 'Email ou Senha inválidos', { timeOut: 2000 });
+        }
         return of({ status: error.status, mensagem: error.error?.mensagem || 'Erro desconhecido' });
       })
     );
-    console.log(loginRespose);
     return loginRespose;
   }
 

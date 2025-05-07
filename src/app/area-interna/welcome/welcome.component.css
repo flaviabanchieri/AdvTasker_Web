@@ -1,0 +1,65 @@
+.content {
+  align-items: center;
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+}
+
+.midia {
+  align-items: center;
+  display: flex;
+}
+
+.logo {
+  height: 200px;
+  margin-bottom: 10px;
+}
+
+.welcome-message h1 {
+  font-size: 32px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.welcome-message {
+  align-items: center;
+}
+
+.comecar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  button{
+    background-color: #008cff;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  }
+}
+
+.welcome-message p {
+  font-size: 16px;
+  opacity: 0.9;
+  margin: 0 0 15px 0;
+  line-height: 1.6;
+  text-align: center;
+}
+
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.feature-item mat-icon {
+  margin-right: 12px;
+  color: #81D4FA;
+  overflow: visible;
+}
