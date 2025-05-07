@@ -2,8 +2,9 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../core/services/generic.service';
 import { MatDialog } from '@angular/material/dialog';
-import { WelcomeComponent } from '../welcome/Welcome.component';
+
 import { BlockUI, BlockUIModule, NgBlockUI, BlockUIService } from 'ng-block-ui';
+import { WelcomeComponent } from '../welcome/welcome.component';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -27,7 +28,6 @@ export class HomeComponent implements OnInit {
   }
 
   welcomeMessage() {
-    this.blockUIService.start('home')
     this.apiService.getItems('usuarios/ObterPrimeiroLogin').pipe(
     ).subscribe({
       next: (res) => {
@@ -37,7 +37,6 @@ export class HomeComponent implements OnInit {
             height: "auto",
           });
         }
-        this.blockUIService.stop('home')
       }
     })
   }
