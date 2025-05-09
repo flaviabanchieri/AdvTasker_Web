@@ -29,7 +29,6 @@ export class AuthService {
         const temEscritorio = response.usuario.usuarioEscritorio.length > 0;
         if (token) {
           localStorage.setItem('token', token);
-          localStorage.setItem('primeiroLogin', response.usuario.primeiroLogin);
           if (!temEscritorio) {
             this.router.navigate(['/onboarding']);
           } else {

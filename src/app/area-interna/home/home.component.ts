@@ -2,21 +2,18 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../core/services/generic.service';
 import { MatDialog } from '@angular/material/dialog';
-
-import { BlockUI, BlockUIModule, NgBlockUI, BlockUIService } from 'ng-block-ui';
 import { WelcomeComponent } from '../welcome/welcome.component';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  imports: [BlockUIModule ],
+  imports: [],
 })
 export class HomeComponent implements OnInit {
-  
-  constructor(private router: Router, 
-    private apiService: ApiService, 
+
+  constructor(private router: Router,
+    private apiService: ApiService,
     public dialog: MatDialog,
-    private blockUIService: BlockUIService 
   ) { }
 
   ngOnInit() {
@@ -27,18 +24,34 @@ export class HomeComponent implements OnInit {
     this.router.navigate([path])
   }
 
-  welcomeMessage() {
-    this.apiService.getItems('usuarios/ObterPrimeiroLogin').pipe(
-    ).subscribe({
-      next: (res) => {
-        if (res) {
-         this.dialog.open(WelcomeComponent, {
-            width: "auto",
-            height: "auto",
-          });
+  welcomeMessage(): void {
+    this.apiService.getItems<{ primeiroLogin: boolean }>('usuarios/ObterPrimeiroLogin')
+      .subscribe((res) => {
+        console.log(res);
+        if (res.primeiroLogin) {
+          this.abrirWelcomeDialog();
         }
-      }
-    })
+      }, (error) => {
+        console.error('Erro ao verificar primeiro login:', error);
+      });
   }
+
+
+  abrirWelcomeDialog(): void {
+    const dialogRef = this.dialog.open(WelcomeComponent, {
+      width: "auto",
+      height: "auto",
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.primeiroLoginConcluido();
+    });
+  }
+
+  primeiroLoginConcluido() {
+    this.apiService.postItems('usuarios/concluirPrimeiroLogin', null).pipe(
+    ).subscribe({})
+  }
+
 
 }

@@ -3,7 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-Welcome',
+  selector: 'app-welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.css'],
   imports: [MatIcon]

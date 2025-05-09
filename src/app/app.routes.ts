@@ -22,7 +22,7 @@ import { ExplorarComponent } from './area-interna/explorar/explorar/explorar.com
 import { NotificacaoComponent } from './area-interna/notificações/notificacao/notificacao.component';
 import { CadastroUsuarioComponent } from './area-externa/cadastro-usuario/cadastro-usuario.component';
 import { CadastroEscritorioComponent } from './area-interna/cadastro-escritorio/cadastro-escritorio.component';
-import { WelcomeComponent } from './area-interna/welcome/Welcome.component';
+import { WelcomeComponent } from './area-interna/welcome/welcome.component';
 
 
 export const routes: Routes = [
