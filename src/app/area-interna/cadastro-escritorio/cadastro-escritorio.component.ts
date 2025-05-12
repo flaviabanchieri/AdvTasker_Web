@@ -44,7 +44,13 @@ export class CadastroEscritorioComponent implements OnInit {
   ];
   diasSelecionados: string[] = [];
 
-  constructor(private router: Router, private fb: FormBuilder, private http: HttpClient, private estadoService: EstadosCidadesService) {}
+  constructor(private apiService: ApiService, 
+    private router: Router, 
+    private fb: FormBuilder, 
+    private http: HttpClient, 
+    private estadoService: EstadosCidadesService,
+    private toastr: ToastrService,
+  ) {}
 
   ngOnInit(): void {
     this.initForms();
@@ -74,10 +80,15 @@ export class CadastroEscritorioComponent implements OnInit {
       ...this.escritorioForm.value,
     };
 
-    console.log('Onboarding finalizado com os dados:', payload);
-
-    // Aqui você pode chamar um serviço para salvar os dados no backend
-    // this.onboardingService.salvar(payload).subscribe(...)
+    this.apiService.postItems('escritorio/cadastro', payload).subscribe(
+      (response: any) => {
+        console.log('Escritório cadastrado com sucesso:', response);
+        this.router.navigate(['/home']);
+      },
+      (error: any) => {
+        console.error('Erro ao cadastrar escritório:', error);
+        this.toastr.error('Erro ao cadastrar escritório. Tente novamente.');
+      });
   }
 
   toggleDia(dia: string): void {
@@ -89,7 +100,4 @@ export class CadastroEscritorioComponent implements OnInit {
     }
   }
 
-  proximoPasso(){
-    this.router.navigate(['/home']);
-  }
 }

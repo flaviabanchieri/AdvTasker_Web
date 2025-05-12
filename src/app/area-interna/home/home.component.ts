@@ -25,15 +25,10 @@ export class HomeComponent implements OnInit {
   }
 
   welcomeMessage(): void {
-    this.apiService.getItems<{ primeiroLogin: boolean }>('usuarios/ObterPrimeiroLogin')
-      .subscribe((res) => {
-        console.log(res);
-        if (res.primeiroLogin) {
-          this.abrirWelcomeDialog();
-        }
-      }, (error) => {
-        console.error('Erro ao verificar primeiro login:', error);
-      });
+    const primeiroLogin = localStorage.getItem('primeiroLogin');
+    if (primeiroLogin === 'true') {
+      this.abrirWelcomeDialog();
+    }
   }
 
 
