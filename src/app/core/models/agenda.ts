@@ -1,11 +1,15 @@
+import { Usuario } from "./usuario";
+
 export interface Agenda {
-  id: number;
-  title: string;
-  date: string;
-  initTime: string;
-  endTime: string;
-  description: string;
-  expertsId: number;
+  id: string;
+  titulo: string;
+  descricao: string;
+  tipo: string;
+  escritorioId: number;
+  dataInicial: string;
+  dataFinal: string;
+  cor: string;
+  usuario: Usuario[];
 }
 
 

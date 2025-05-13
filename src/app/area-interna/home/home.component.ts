@@ -45,7 +45,15 @@ export class HomeComponent implements OnInit {
 
   primeiroLoginConcluido() {
     this.apiService.postItems('usuarios/concluirPrimeiroLogin', null).pipe(
-    ).subscribe({})
+    ).subscribe({
+      next: () => {
+        
+      },
+      error: (err) => {
+        console.error('Error completing first login:', err);
+      }
+    });
+    localStorage.setItem('primeiroLogin', 'false')
   }
 
 

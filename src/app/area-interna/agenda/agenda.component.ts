@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { Calendar, CalendarOptions } from '@fullcalendar/core';
+import { Calendar, CalendarOptions, EventSourceInput } from '@fullcalendar/core';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -10,6 +10,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import ptBrLocale from '@fullcalendar/core/locales/pt-br'; // Importando o idioma
 import { SidebarService } from '../../core/services/sidebar.service';
 import { RefObject } from '@fullcalendar/core/preact.js';
+import { ApiService } from '../../core/services/generic.service';
+import { Agenda } from '../../core/models/agenda';
 
 
 @Component({
@@ -19,9 +21,11 @@ import { RefObject } from '@fullcalendar/core/preact.js';
   imports: [CommonModule, NgbModule, RouterModule, FullCalendarModule]
 })
 export class AgendaComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private apiService: ApiService) { }
 
-  ngOnInit() {  }
+  ngOnInit() { 
+    this.popularEvento 
+  }
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridWeek', // Visualização semanal
@@ -66,8 +70,22 @@ export class AgendaComponent implements OnInit {
 
   }
 
-  criarEvento(){
+  criarEvento() {
     this.router.navigate(['/agenda/editar/0']);
+  }
+
+  popularEvento() {
+    this.apiService.getItems<Agenda[]>('your-api-endpoint').subscribe((data: Agenda[]) => {
+      const eventosFormatados = data.map((evento: Agenda) => ({
+        id: evento.id.toString(),
+        title: evento.titulo,
+        start: evento.dataInicial,
+        end: evento.dataFinal,
+        description: evento.descricao
+      }));
+
+      this.calendarOptions.events = eventosFormatados
+    });
   }
 
 }

@@ -53,6 +53,8 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('primeiroLogin');
+    this.isAuth = false;
     this.router.navigate(['/login']);
   }
 

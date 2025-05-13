@@ -66,12 +66,6 @@ export const routes: Routes = [
     data: { title: 'Bem-Vindo' }
   },
   {
-    path: 'Bem-vindo',
-    component: WelcomeComponent,
-    canActivate: [AuthGuard],
-    data: { title: 'Bem-Vindo' }
-  },
-  {
     path: '404',
     component: ErrorPageComponent
   },

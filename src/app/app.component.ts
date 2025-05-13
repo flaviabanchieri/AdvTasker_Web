@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { AuthService } from './core/auth/auth.service';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
@@ -16,6 +16,11 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
+    window.addEventListener('storage', (event) => {
+    if (event.key === 'token' && event.newValue === null) {
+      this.authService.logout(); 
+    }
+  });
   }
   
 }

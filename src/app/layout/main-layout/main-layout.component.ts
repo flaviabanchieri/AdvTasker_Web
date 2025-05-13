@@ -15,10 +15,15 @@ export class MainLayoutComponent implements OnInit {
   constructor(private sidebarService: SidebarService) { }
 
   ngOnInit() {
+    this.voltarAoTopo();
   }
 
   toggleSidebar() {
     this.isSidebarCollapsed = this.sidebarService.toggleSidebar();
+  }
+
+  voltarAoTopo(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
 }

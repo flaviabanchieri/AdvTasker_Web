@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router'
+import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,7 +17,7 @@ export class SidebarComponent implements OnInit {
   public parentId = ``;
   isCollapsed: boolean = false;
   dropdownsAbertos: string[] = new Array;
-  constructor(public router: Router,) { }
+  constructor(public router: Router, private auth: AuthService) { }
 
   ngOnInit() {
   }
@@ -96,5 +97,9 @@ export class SidebarComponent implements OnInit {
     }
   }
 
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/login']);
+  }
 
 }
