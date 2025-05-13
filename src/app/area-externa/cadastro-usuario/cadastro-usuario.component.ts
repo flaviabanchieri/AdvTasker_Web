@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
-import { map, catchError, of } from 'rxjs';
+import { map } from 'rxjs';
 import { AuthService } from '../../core/auth/auth.service';
 import { Usuario } from '../../core/models/usuario';
 import { ApiService } from '../../core/services/generic.service';
