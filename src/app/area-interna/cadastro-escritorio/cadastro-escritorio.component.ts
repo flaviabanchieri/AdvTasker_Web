@@ -94,7 +94,7 @@ export class CadastroEscritorioComponent implements OnInit {
       });
   }
 
-  toggleDia(dia: string): void {
+  toggleDia(dia: number): void {
     const index = this.diasSelecionados.indexOf(dia);
     if (index > -1) {
       this.diasSelecionados.splice(index, 1);
@@ -103,6 +103,10 @@ export class CadastroEscritorioComponent implements OnInit {
       this.diasSelecionados.push(dia);
       this.diasUteis.push(this.fb.control(dia));
     }
+  }
+
+   get diasUteis(): FormArray {
+    return this.escritorioForm.get('diasUteis') as FormArray;
   }
 
 }
