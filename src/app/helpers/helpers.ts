@@ -9,7 +9,6 @@ export class Helpers {
     return new HttpHeaders().set('Content-Type', 'application/json');
   }static toJson(model: any): any {
     var json = JSON.stringify(model, this.removeNullValues);
-    console.log(json)
     return json;
 
   }

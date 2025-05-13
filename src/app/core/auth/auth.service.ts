@@ -29,6 +29,7 @@ export class AuthService {
         const temEscritorio = response.usuario.usuarioEscritorio.length > 0;
         if (token) {
           localStorage.setItem('token', token);
+          localStorage.setItem('primeiroLogin', response.usuario.primeiroLogin);
           if (!temEscritorio) {
             this.router.navigate(['/onboarding']);
           } else {
@@ -55,11 +56,32 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  getToken() {
+   getToken(): string | null {
     return localStorage.getItem('token');
   }
 
   isAuthenticated(): boolean {
-    return !!this.getToken();
+    const token = this.getToken();
+    if (!token) {
+      return false;
+    }
+
+    const payload = this.getPayload(token);
+    if (!payload || !payload.exp) {
+      return false;
+    }
+
+    const currentTime = Math.floor(Date.now() / 1000); // tempo atual em segundos
+    return payload.exp > currentTime;
+  }
+
+  private getPayload(token: string): any {
+    try {
+      const payloadBase64 = token.split('.')[1];
+      const payloadJson = atob(payloadBase64);
+      return JSON.parse(payloadJson);
+    } catch (e) {
+      return null;
+    }
   }
 }
