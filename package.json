@@ -24,6 +24,7 @@
     "@fullcalendar/daygrid": "^6.1.15",
     "@fullcalendar/interaction": "^6.1.15",
     "@fullcalendar/timegrid": "^6.1.15",
+    "@material/list": "^14.0.0",
     "@ng-bootstrap/ng-bootstrap": "^18.0.0",
     "block-ui": "^2.70.1",
     "bootstrap": "^5.3.3",

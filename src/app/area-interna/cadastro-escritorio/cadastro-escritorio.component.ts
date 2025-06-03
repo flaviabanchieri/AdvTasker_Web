@@ -79,21 +79,36 @@ export class CadastroEscritorioComponent implements OnInit {
   }
 
   finalizar(): void {
-    const payload = {
-      ...this.escritorioForm.value,
-    };
+  const payload = {
+    ...this.escritorioForm.value,
+  };
 
-    this.apiService.postItems('escritorio/cadastro', payload).subscribe(
-      (response: any) => {
-        console.log('Escritório cadastrado com sucesso:', response);
-        this.router.navigate(['/home']);
+  this.apiService.postItems('escritorio/editar', payload).subscribe(
+    (response: any) => {
+      console.log('Escritório cadastrado com sucesso:', response);
+
+      this.concluirLogin(); // ✅ chama o método após sucesso
+
+      localStorage.setItem('primeiroLogin', 'true');
+      this.router.navigate(['/home']);
+    },
+    (error: any) => {
+      console.error('Erro ao cadastrar escritório:', error);
+      this.toastr.error('Erro ao cadastrar escritório. Tente novamente.');
+    }
+  );
+}
+  concluirLogin(){
+    this.apiService.postItems('usuarios/concluirPrimeiroLogin', null).pipe(
+    ).subscribe({
+      next: () => {
+        
       },
-      (error: any) => {
-        console.error('Erro ao cadastrar escritório:', error);
-        this.toastr.error('Erro ao cadastrar escritório. Tente novamente.');
-      });
+      error: (err) => {
+        console.error('Error completing first login:', err);
+      }
+    });
   }
-
   toggleDia(dia: number): void {
     const index = this.diasSelecionados.indexOf(dia);
     if (index > -1) {
