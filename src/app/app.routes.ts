@@ -23,6 +23,7 @@ import { NotificacaoComponent } from './area-interna/notificações/notificacao/
 import { CadastroUsuarioComponent } from './area-externa/cadastro-usuario/cadastro-usuario.component';
 import { CadastroEscritorioComponent } from './area-interna/cadastro-escritorio/cadastro-escritorio.component';
 import { WelcomeComponent } from './area-interna/welcome/welcome.component';
+import { ClienteCadastroComponent } from './area-interna/clientes/cliente-cadastro/cliente-cadastro.component';
 
 
 export const routes: Routes = [
@@ -40,6 +41,7 @@ export const routes: Routes = [
       { path: 'tarefas', component: MinhasTarefasComponent, data: { title: 'Minhas tarefas' } },
       { path: 'tarefas/gerenciar', component: GerenciarTarefasComponent, data: { title: 'Tarefas > Gerenciar' } },
       { path: 'clientes', component: ClientesComponent, data: { title: 'Clientes' } },
+      { path: 'clientes/detalhe', component: ClienteCadastroComponent, data: { title: 'Cliente' } },
       { path: 'clientes/criar', component: ClientesCriarComponent, data: { title: 'Clientes > Criar' } },
       { path: 'clientes/editar', component: ClientesEditarComponent, data: { title: 'Clientes > Editar' } },
       { path: 'processos', component: ProcessosComponent, data: { title: 'Processos' } },

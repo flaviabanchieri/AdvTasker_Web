@@ -1,0 +1,139 @@
+<aside class="w-[360px] row bg-white border-r border-gray-200 p-6 overflow-y-auto font-sans">
+  <h2 class="text-xl font-semibold mb-6">🧾 Dados do Cliente</h2>
+
+  <!-- Linha 1: Nome + Email -->
+  <div class="flex gap-6 mb-4">
+    <div class="flex-1 min-w-0">
+      <label class="block text-gray-600 text-xs font-semibold mb-1">Nome</label>
+      <p class="truncate">{{ cliente.nome }}</p>
+    </div>
+    <div class="flex-1 min-w-0">
+      <label class="block text-gray-600 text-xs font-semibold mb-1">Email</label>
+      <p class="truncate">{{ cliente.email }}</p>
+    </div>
+  </div>
+
+  <!-- Linha 2: Telefone + Documento -->
+  <div class="flex gap-6 mb-4">
+    <div class="flex-1 min-w-0">
+      <label class="block text-gray-600 text-xs font-semibold mb-1">Telefone</label>
+      <p>{{ cliente.telefone }}</p>
+    </div>
+    <div class="flex-1 min-w-0">
+      <label class="block text-gray-600 text-xs font-semibold mb-1">Documento</label>
+      <p class="truncate">{{ cliente.documento }}</p>
+    </div>
+  </div>
+
+  <!-- Linha 3: Tipo Pessoa -->
+  <div class="mb-4">
+    <label class="block text-gray-600 text-xs font-semibold mb-1">Tipo Pessoa</label>
+    <p>{{ cliente.tipoPessoa === 0 ? 'Física' : 'Jurídica' }}</p>
+  </div>
+
+  <!-- Pessoa Física -->
+  <ng-container *ngIf="cliente.tipoPessoa === 0">
+    <!-- Linha 4: RG + Emissão RG -->
+    <div class="flex gap-6 mb-4">
+      <div class="flex-1 min-w-0">
+        <label class="block text-gray-600 text-xs font-semibold mb-1">RG</label>
+        <p>{{ cliente.rg }}</p>
+      </div>
+      <div class="flex-1 min-w-0">
+        <label class="block text-gray-600 text-xs font-semibold mb-1">Emissor RG</label>
+        <p>{{ cliente.emissaoRG }}</p>
+      </div>
+    </div>
+
+    <!-- Linha 5: Data Emissão RG + Nascimento -->
+    <div class="flex gap-6 mb-4">
+      <div class="flex-1 min-w-0">
+        <label class="block text-gray-600 text-xs font-semibold mb-1">Data Emissão</label>
+        <p>{{ cliente.dataEmissaoRG | date }}</p>
+      </div>
+      <div class="flex-1 min-w-0">
+        <label class="block text-gray-600 text-xs font-semibold mb-1">Nascimento</label>
+        <p>{{ cliente.nascimento | date }}</p>
+      </div>
+    </div>
+
+    <!-- Linha 6: Estado Civil + Profissão -->
+    <div class="flex gap-6 mb-4">
+      <div class="flex-1 min-w-0">
+        <label class="block text-gray-600 text-xs font-semibold mb-1">Estado Civil</label>
+        <p>{{ cliente.estadoCivil }}</p>
+      </div>
+      <div class="flex-1 min-w-0">
+        <label class="block text-gray-600 text-xs font-semibold mb-1">Profissão</label>
+        <p>{{ cliente.profissao }}</p>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Pessoa Jurídica -->
+  <ng-container *ngIf="cliente.tipoPessoa === 1">
+    <!-- Linha 4: Razão Social + Nome Fantasia -->
+    <div class="flex gap-6 mb-4">
+      <div class="flex-1 min-w-0">
+        <label class="block text-gray-600 text-xs font-semibold mb-1">Razão Social</label>
+        <p>{{ cliente.razaoSocial }}</p>
+      </div>
+      <div class="flex-1 min-w-0">
+        <label class="block text-gray-600 text-xs font-semibold mb-1">Nome Fantasia</label>
+        <p>{{ cliente.nomeFantasia }}</p>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Endereços -->
+  <div class="mt-8">
+    <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-3">Endereços</h3>
+    <div *ngFor="let endereco of cliente.endereco" class="bg-gray-50 p-3 rounded-lg border mb-3 shadow-sm text-xs">
+      <p>{{ endereco.logradouro }}, {{ endereco.numero }} - {{ endereco.bairro }}</p>
+      <p>{{ endereco.cidade }} - {{ endereco.estado }} - {{ endereco.cep }}</p>
+    </div>
+  </div>
+</aside>
+
+
+<main class="flex-1 px-10 py-8 overflow-y-auto">
+  <mat-tab-group mat-stretch-tabs dynamicHeight>
+    <!-- Abas -->
+    <mat-tab label="Processos">
+      <section class="mt-6">
+        <h3 class="text-lg font-semibold mb-4">📂 Processos</h3>
+        <div *ngIf="cliente.parte.length > 0; else semProcessos" class="grid grid-cols-2 gap-6">
+          <div *ngFor="let processo of cliente.parte" class="bg-white rounded-xl p-5 shadow-sm border">
+            <p class="text-sm"><span class="font-semibold text-gray-600">Número:</span> {{ processo.numeroProcesso }}</p>
+            <p class="text-sm"><span class="font-semibold text-gray-600">Descrição:</span> {{ processo.descricao }}</p>
+          </div>
+        </div>
+        <ng-template #semProcessos>
+          <p class="text-gray-400 text-sm">Nenhum processo encontrado.</p>
+        </ng-template>
+      </section>
+    </mat-tab>
+
+    <mat-tab label="Agendamentos">
+      <section class="mt-6">
+        <h3 class="text-lg font-semibold mb-4">📅 Agendamentos</h3>
+        <div *ngIf="cliente.agendas.length > 0; else semAgendas" class="grid grid-cols-2 gap-6">
+          <div *ngFor="let agenda of cliente.agendas" class="bg-white rounded-xl p-5 shadow-sm border">
+            <p class="text-sm"><span class="font-semibold text-gray-600">Data:</span> {{ agenda.agenda.dataInicial| date: 'short' }}</p>
+            <p class="text-sm"><span class="font-semibold text-gray-600">Descrição:</span> {{ agenda.agenda.descricao }}</p>
+          </div>
+        </div>
+        <ng-template #semAgendas>
+          <p class="text-gray-400 text-sm">Nenhum agendamento encontrado.</p>
+        </ng-template>
+      </section>
+    </mat-tab>
+
+    <mat-tab label="Peças">
+      <section class="mt-6">
+        <h3 class="text-lg font-semibold mb-4">📁 Peças</h3>
+        <p class="text-gray-400 text-sm">Funcionalidade em desenvolvimento.</p>
+      </section>
+    </mat-tab>
+  </mat-tab-group>
+</main>
