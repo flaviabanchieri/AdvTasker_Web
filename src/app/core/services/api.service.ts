@@ -4,7 +4,7 @@ import { Observable, catchError, map, of } from 'rxjs';
 import { Helpers } from '../../helpers/helpers';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ApiService {
   private readonly apiUrl = 'https://localhost:44360/api/';

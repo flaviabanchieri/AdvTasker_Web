@@ -2,12 +2,13 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, map, catchError, of, switchMap } from 'rxjs';
-import { ApiService } from '../services/generic.service';
+import { ApiService } from '../services/api.service';
 import { Usuario } from '../models/usuario';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { SelecionarEscritorioDialogComponent } from '../../area-externa/SelecionarEscritorioDialog/SelecionarEscritorioDialog.component';
 import { LoginResponse } from '../models/retornoLogin';
+import { EscritorioUrl } from '../url/escritorio-url';
 
 @Injectable({
   providedIn: 'root',

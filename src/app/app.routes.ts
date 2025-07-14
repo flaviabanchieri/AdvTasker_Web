@@ -21,15 +21,16 @@ import { RelatorioDesempenhoComponent } from './area-interna/relatorios/relatori
 import { ExplorarComponent } from './area-interna/explorar/explorar/explorar.component';
 import { NotificacaoComponent } from './area-interna/notificações/notificacao/notificacao.component';
 import { CadastroUsuarioComponent } from './area-externa/cadastro-usuario/cadastro-usuario.component';
-import { CadastroEscritorioComponent } from './area-interna/cadastro-escritorio/cadastro-escritorio.component';
 import { WelcomeComponent } from './area-interna/welcome/welcome.component';
+import { OnboardingComponent } from './area-interna/onboarding/onboarding.component';
+import { OnboardingGuard } from './area-interna/onboarding/guard/onboarding.guard';
 
 
 export const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, OnboardingGuard],
     children: [
       { path: 'home', component: HomeComponent, data: { title: 'Painel' } },
       { path: 'agenda', component: AgendaComponent, data: { title: 'Agenda' } },
@@ -61,7 +62,7 @@ export const routes: Routes = [
   },
   {
     path: 'onboarding',
-    component: CadastroEscritorioComponent,
+    component: OnboardingComponent,
     canActivate: [AuthGuard],
     data: { title: 'Bem-Vindo' }
   },

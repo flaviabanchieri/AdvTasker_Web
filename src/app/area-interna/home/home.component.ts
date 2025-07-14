@@ -1,8 +1,9 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../core/services/generic.service';
+import { ApiService } from '../../core/services/api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { WelcomeComponent } from '../welcome/welcome.component';
+import { EscritorioUrl } from '../../core/url/escritorio-url';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -23,6 +24,7 @@ export class HomeComponent implements OnInit {
   redirect(path: string) {
     this.router.navigate([path])
   }
+
 
   welcomeMessage(): void {
     const primeiroLogin = localStorage.getItem('primeiroLogin');

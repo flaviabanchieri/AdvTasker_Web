@@ -20,17 +20,15 @@ export class LoginComponent implements OnInit {
     // Inicializa o formulário no construtor
     this.loginForm = this.fb.group({
       user: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required]]
     });
   }
 
   ngOnInit(): void {
   }
 
-  onSubmit(event: Event): void {
-    event.preventDefault();  // Impede o recarregamento da página
-
-    if (this.loginForm.valid) {
+  onSubmit(): void {
+       if (this.loginForm.valid) {
       const username = this.loginForm.get('user')?.value;
       const password = this.loginForm.get('password')?.value;
       if (this.authService.login(username, password).subscribe()) {

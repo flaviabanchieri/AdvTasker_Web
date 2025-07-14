@@ -6,7 +6,7 @@ import { RouterModule, Router } from '@angular/router';
 import { map } from 'rxjs';
 import { AuthService } from '../../core/auth/auth.service';
 import { Usuario } from '../../core/models/usuario';
-import { ApiService } from '../../core/services/generic.service';
+import { ApiService } from '../../core/services/api.service';
 import { Cargo } from '../../core/enums/cargos.enum';
 import { ToastrService } from 'ngx-toastr';
 
