@@ -3,6 +3,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 import { Cliente } from '../../../core/models/cliente';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-clientes',
@@ -10,7 +11,8 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./clientes.component.css'],
   imports: [
     CommonModule,       
-    ReactiveFormsModule 
+    ReactiveFormsModule,
+    RouterModule
   ],
 })
 export class ClientesComponent implements OnInit {
@@ -18,6 +20,9 @@ export class ClientesComponent implements OnInit {
   clientes: Cliente[] = [];
   clientesFiltrados: Cliente[] = [];
 
+  constructor(private router: Router){
+
+  }
   ngOnInit(): void {
     // Simula dados mockados
     this.clientes = [
@@ -66,5 +71,10 @@ export class ClientesComponent implements OnInit {
       case 'Pendente': return 'bg-yellow';
       default: return '';
     }
+  }
+
+  irParCliente(cliente: Cliente){
+    this.router.navigate(['cliente', cliente.id]);
+
   }
 }

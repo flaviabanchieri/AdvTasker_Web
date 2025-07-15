@@ -1,0 +1,66 @@
+<div class="cliente-wrapper" [formGroup]="form">
+  <!-- Cabeçalho com nome do cliente -->
+  <div class="cliente-header">
+    <h1>{{ form.get('dadosPessoais.nomeCompleto')?.value || 'Nome do Cliente' }}</h1>
+  </div>
+
+  <!-- Dados pessoais (somente leitura) -->
+  <section class="dados-pessoais" formGroupName="dadosPessoais">
+    <div class="campo">
+      <label>Nome Completo</label>
+      <span>{{ form.get('nomeCompleto')?.value || '-' }}</span>
+    </div>
+    <div class="campo">
+      <label>CPF/CNPJ</label>
+      <span>{{ form.get('cpfCnpj')?.value || '-' }}</span>
+    </div>
+    <div class="campo">
+      <label>RG</label>
+      <span>{{ form.get('rg')?.value || '-' }}</span>
+    </div>
+    <div class="campo">
+      <label>Profissão</label>
+      <span>{{ form.get('profissao')?.value || '-' }}</span>
+    </div>
+    <div class="campo">
+      <label>Nacionalidade</label>
+      <span>{{ form.get('nacionalidade')?.value || '-' }}</span>
+    </div>
+    <div class="campo">
+      <label>Estado civil</label>
+      <span>{{ form.get('estadoCivil')?.value || '-' }}</span>
+    </div>
+    <div class="campo">
+      <label>Email</label>
+      <span>{{ form.get('email')?.value || '-' }}</span>
+    </div>
+    <div class="campo">
+      <label>Telefone</label>
+      <span>{{ form.get('telefone')?.value || '-' }}</span>
+    </div>
+  </section>
+
+  <!-- Área principal com menu lateral + painel -->
+  <div class="conteudo">
+    <!-- Menu lateral -->
+    <nav class="menu-lateral">
+      <button mat-button *ngFor="let aba of abas" (click)="abaAtiva = aba" [class.ativo]="abaAtiva === aba">
+        {{ aba }}
+      </button>
+    </nav>
+
+    <!-- Painel com conteúdo da aba ativa -->
+    <section class="painel">
+      <ng-container [ngSwitch]="abaAtiva">
+        <div *ngSwitchCase="'Processos'" formArrayName="processos">
+          <app-cliente-processos></app-cliente-processos>
+        </div>
+
+        <div *ngSwitchCase="'Anotações'">
+          <app-cliente-anotacoes></app-cliente-anotacoes>
+        </div>
+      </ng-container>
+    </section>
+  </div>
+
+</div>

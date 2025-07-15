@@ -7,7 +7,7 @@
 
   <div class="lista-clientes">
     <div class="cliente-card" *ngFor="let cliente of clientesFiltrados">
-      <div class="cliente-info">
+      <div (click)="irParCliente(cliente)" class="cliente-info">
         <h2>{{ cliente.nome }}</h2>
         <p>{{ cliente.cpfCnpj }}</p>
         <p>{{ cliente.email }}</p>
