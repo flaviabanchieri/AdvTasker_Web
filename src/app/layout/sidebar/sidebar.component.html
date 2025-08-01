@@ -12,7 +12,7 @@
       <li [ngClass]="{ 'active-link': router.url.endsWith('/home') }">
         <a [routerLink]="'/home'">
           <span class="material-icons">dashboard</span>
-          <p *ngIf="!isCollapsed">Dashboard</p>
+          <p *ngIf="!isCollapsed">Painel</p>
         </a>
       </li>
       <li [ngClass]="{ 'active-link': router.url.includes('/agenda') }">

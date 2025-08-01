@@ -1,67 +1,85 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 import { Cliente } from '../../../core/models/cliente';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { ApiService } from '../../../core/services/api.service';
+import { ClienteUrl } from '../../../core/url/cliente-url';
+import { ResultadoBusca } from '../../../core/models/resultado-busca';
 
 @Component({
   selector: 'app-clientes',
   templateUrl: './clientes.component.html',
   styleUrls: ['./clientes.component.css'],
   imports: [
-    CommonModule,       
+    CommonModule,
     ReactiveFormsModule,
     RouterModule
   ],
 })
 export class ClientesComponent implements OnInit {
-    buscaControl = new FormControl('', { nonNullable: true });
+  formFiltro!: FormGroup;
   clientes: Cliente[] = [];
-  clientesFiltrados: Cliente[] = [];
+  mostrarAvancado = false;
+  listaClasseProcesso: { id: number; nome: string }[] = [];
 
-  constructor(private router: Router){
+  constructor(private router: Router, private apiService: ApiService, private fb: FormBuilder) {
 
   }
   ngOnInit(): void {
-    // Simula dados mockados
-    this.clientes = [
-      {
-        id: '1', nome: 'João Silva', cpfCnpj: '123.456.789-00',
-        email: 'joao@email.com', telefone: '(11) 91234-5678',
-        processosAtivos: 3, status: 'Ativo'
-      },
-      {
-        id: '2', nome: 'Maria Souza', cpfCnpj: '987.654.321-00',
-        email: 'maria@email.com', telefone: '(21) 99876-5432',
-        processosAtivos: 0, status: 'Pendente'
-      },
-      {
-        id: '3', nome: 'Carlos Lima', cpfCnpj: '111.222.333-44',
-        email: 'carlos@email.com', telefone: '(31) 91234-0000',
-        processosAtivos: 1, status: 'Inativo'
-      },
-      {
-        id: '4', nome: 'Ana Paula', cpfCnpj: '555.666.777-88',
-        email: 'ana@email.com', telefone: '(41) 98888-1234',
-        processosAtivos: 5, status: 'Ativo'
-      }
+    this.listaClasseProcesso = [
+      { id: 1, nome: 'Divórcio Consensual' },
+      { id: 2, nome: 'Divórcio Litigioso' },
+      { id: 3, nome: 'Inventário e Partilha' },
+      { id: 4, nome: 'Reconhecimento de União Estável' },
+      { id: 5, nome: 'Guarda e Regulamentação de Visitas' },
+      { id: 6, nome: 'Pensão Alimentícia' },
+      { id: 7, nome: 'Ação de Cobrança' },
+      { id: 8, nome: 'Indenização por Danos Morais' },
+      { id: 9, nome: 'Indenização por Danos Materiais' },
+      { id: 10, nome: 'Execução de Título Extrajudicial' },
+      { id: 11, nome: 'Ação de Obrigação de Fazer' },
+      { id: 12, nome: 'Reclamatória Trabalhista' },
+      { id: 13, nome: 'Reconhecimento de Vínculo Empregatício' },
+      { id: 14, nome: 'Verbas Rescisórias' },
+      { id: 15, nome: 'Ação contra Plano de Saúde' },
+      { id: 16, nome: 'Ação contra Instituição Financeira' },
+      { id: 17, nome: 'Defeito de Produto ou Serviço' },
+      { id: 18, nome: 'Aposentadoria por Invalidez' },
+      { id: 19, nome: 'Auxílio-Doença' },
+      { id: 20, nome: 'Revisão de Aposentadoria' },
+      { id: 21, nome: 'Defesa em Inquérito Policial' },
+      { id: 22, nome: 'Defesa em Ação Penal' },
+      { id: 23, nome: 'Despejo por Falta de Pagamento' },
+      { id: 24, nome: 'Reintegração de Posse' },
+      { id: 25, nome: 'Ação Monitória' },
+      { id: 26, nome: 'Mandado de Segurança' }
     ];
 
-    this.clientesFiltrados = [...this.clientes];
-
-    this.buscaControl.valueChanges
-      .pipe(debounceTime(300))
-      .subscribe(valor => this.filtrarClientes(valor));
+    this.construirFormulario();
+    this.obterClientes();
   }
 
-  filtrarClientes(valor: string | null): void {
-    const filtro = (valor || '').toLowerCase();
-    this.clientesFiltrados = this.clientes.filter(cliente =>
-      cliente.nome.toLowerCase().includes(filtro) ||
-      cliente.cpfCnpj.toLowerCase().includes(filtro) ||
-      cliente.email.toLowerCase().includes(filtro)
-    );
+  construirFormulario() {
+    this.formFiltro = this.fb.group({
+      nome: [null],
+      documento: [null],
+      profissao: [null],
+      classeProcessoId: [null],
+      estado: [null],
+      cidade: [null],
+      pageNumber: [1],
+      pageSize: [20]
+    });
+  }
+
+  obterClientes() {
+    const filtros = this.formFiltro.value;
+    this.apiService.getFiltro<ResultadoBusca<Cliente>>(ClienteUrl.ListarClientes, filtros).subscribe((clientes: ResultadoBusca<Cliente>) => {
+      console.log('Clientes filtrados:', clientes);
+      this.clientes = clientes.items;
+    });
   }
 
   statusClass(status: string): string {
@@ -73,8 +91,13 @@ export class ClientesComponent implements OnInit {
     }
   }
 
-  irParCliente(cliente: Cliente){
+  irParCliente(cliente: Cliente) {
     this.router.navigate(['cliente', cliente.id]);
 
+  }
+
+  limparFiltros(){
+    this.formFiltro.reset();
+    this.obterClientes();
   }
 }

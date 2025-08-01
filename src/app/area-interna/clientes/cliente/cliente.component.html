@@ -52,6 +52,12 @@
     <!-- Painel com conteúdo da aba ativa -->
     <section class="painel">
       <ng-container [ngSwitch]="abaAtiva">
+        <div *ngSwitchCase="'Contatos'">
+          <app-cliente-contatos></app-cliente-contatos>
+        </div>
+        <div *ngSwitchCase="'Endereços'">
+          <app-cliente-endereco></app-cliente-endereco>
+        </div>
         <div *ngSwitchCase="'Processos'" formArrayName="processos">
           <app-cliente-processos></app-cliente-processos>
         </div>
