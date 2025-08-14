@@ -16,11 +16,7 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    window.addEventListener('storage', (event) => {
-    if (event.key === 'token' && event.newValue === null) {
-      this.authService.logout(); 
-    }
-  });
+
   }
   
 }

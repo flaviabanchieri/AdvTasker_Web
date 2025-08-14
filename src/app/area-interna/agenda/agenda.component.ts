@@ -39,7 +39,6 @@ export class AgendaComponent implements OnInit {
     },
     plugins: [timeGridPlugin, dayGridPlugin, interactionPlugin], // Habilita a visualização semanal
     handleWindowResize: true,
-    themeSystem: 'bootstrap4',
     height: "85vh",
     headerToolbar: {
       left: 'prev,next today',
