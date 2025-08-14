@@ -22,7 +22,6 @@ import { ExplorarComponent } from './area-interna/explorar/explorar/explorar.com
 import { NotificacaoComponent } from './area-interna/notificações/notificacao/notificacao.component';
 import { CadastroUsuarioComponent } from './area-externa/cadastro-usuario/cadastro-usuario.component';
 import { WelcomeComponent } from './area-interna/welcome/welcome.component';
-import { ClienteCadastroComponent } from './area-interna/clientes/cliente-cadastro/cliente-cadastro.component';
 import { OnboardingComponent } from './area-interna/onboarding/onboarding.component';
 import { OnboardingGuard } from './area-interna/onboarding/guard/onboarding.guard';
 import { ClienteComponent } from './area-interna/clientes/cliente/cliente.component';
