@@ -11,7 +11,7 @@ import ptBrLocale from '@fullcalendar/core/locales/pt-br'; // Importando o idiom
 import { SidebarService } from '../../core/services/sidebar.service';
 import { RefObject } from '@fullcalendar/core/preact.js';
 import { ApiService } from '../../core/services/api.service';
-import { Agenda } from '../../core/models/agenda';
+import { Agenda } from '../../core/models/agenda/agenda';
 
 
 @Component({

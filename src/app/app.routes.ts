@@ -43,6 +43,7 @@ export const routes: Routes = [
       { path: 'tarefas', component: MinhasTarefasComponent, data: { title: 'Minhas tarefas' } },
       { path: 'tarefas/gerenciar', component: GerenciarTarefasComponent, data: { title: 'Tarefas > Gerenciar' } },
       { path: 'clientes', component: ClientesComponent, data: { title: 'Clientes' } },
+      { path: 'cliente/:id', component: ClienteComponent, data: { title: 'Clientes' } },
       { path: 'clientes/criar', component: ClientesCriarComponent, data: { title: 'Clientes > Criar' } },
       { path: 'clientes/editar', component: ClientesEditarComponent, data: { title: 'Clientes > Editar' } },
       { path: 'processos', component: ProcessosComponent, data: { title: 'Processos' } },
