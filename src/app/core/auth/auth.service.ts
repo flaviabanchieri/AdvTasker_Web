@@ -1,20 +1,22 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, resolveForwardRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, map, catchError, of, switchMap } from 'rxjs';
-import { ApiService } from '../services/generic.service';
+import { ApiService } from '../services/api.service';
 import { Usuario } from '../models/usuario';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { SelecionarEscritorioDialogComponent } from '../../area-externa/SelecionarEscritorioDialog/SelecionarEscritorioDialog.component';
 import { LoginResponse } from '../models/retornoLogin';
+import { EscritorioUrl } from '../url/escritorio-url';
+import { ScrollResponder } from '@fullcalendar/core/internal';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private isAuth = false;
-  private readonly apiUrl = 'https://localhost:44360/api/usuarios';
+  private readonly apiUrl = 'https://localhost:44360/api/auth';
 
 
   constructor(
@@ -28,8 +30,9 @@ export class AuthService {
   login(email: string, senha: string): Observable<{ status: number; mensagem: string }> {
     const usuario = { id: 0, nome: '', email, senha };
 
-    return (this.apiService.postItemsSemToken('usuarios/login', usuario) as Observable<LoginResponse>).pipe(
+    return (this.apiService.postItemsSemToken('auth/login', usuario) as Observable<LoginResponse>).pipe(
       switchMap((response: LoginResponse) => {
+        console.log(response);
         if (response.usuario.usuarioEscritorio.length > 1) {
           const dialogRef = this.dialog.open(SelecionarEscritorioDialogComponent, {
             data: {
@@ -43,14 +46,12 @@ export class AuthService {
               if (!escritorioId) {
                 return of({ status: 400, mensagem: 'Seleção de escritório cancelada' });
               }
-              console.log(escritorioId);
 
-              return this.apiService.postItemsSemToken('usuarios/gerar-token', {
+              return this.apiService.postItems('auth/gerar-token', {
                 email: response.usuario.email,
                 escritorioId
               }).pipe(
                 map((resp: any) => {
-                  localStorage.setItem('token', resp.token);
                   localStorage.setItem('primeiroLogin', String(response.usuario.primeiroLogin));
                   this.router.navigate(['/home']);
                   return { status: 200, mensagem: 'Login realizado com sucesso' };
@@ -61,13 +62,12 @@ export class AuthService {
         } else {
 
           const escritorioId = response.usuario.usuarioEscritorio[0].escritorioId;
-          console.log(response)
-          return this.apiService.postItemsSemToken('usuarios/gerar-token', {
+
+          return this.apiService.postItems('auth/gerar-token', {
             email: response.usuario.email,
             escritorioId
           }).pipe(
             map((resp: any) => {
-              localStorage.setItem('token', resp.token);
               localStorage.setItem('primeiroLogin', String(response.usuario.primeiroLogin));
               if (response.usuario.primeiroLogin == true) {
                 this.router.navigate(['/onboarding']);
@@ -86,39 +86,30 @@ export class AuthService {
   }
 
 
+  refreshToken() {
+    return this.apiService.postItems(`auth/refresh`, null);
+  }
+
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('primeiroLogin');
-    this.isAuth = false;
-    this.router.navigate(['/login']);
+    this.apiService.postItems('auth/logout', null).subscribe({
+      next: () => {
+        localStorage.removeItem('primeiroLogin');
+        this.isAuth = false;
+        this.router.navigate(['/login']);
+      },
+      error: () => {
+        localStorage.removeItem('primeiroLogin');
+        this.isAuth = false;
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
-  getToken(): string | null {
-    return localStorage.getItem('token');
+  isAuthenticated(): Observable<boolean> {
+    return this.apiService.getItems('auth/me').pipe(
+      map(() => true),
+      catchError(() => of(false))
+    );
   }
 
-  isAuthenticated(): boolean {
-    const token = this.getToken();
-    if (!token) {
-      return false;
-    }
-
-    const payload = this.getPayload(token);
-    if (!payload || !payload.exp) {
-      return false;
-    }
-
-    const currentTime = Math.floor(Date.now() / 1000); // tempo atual em segundos
-    return payload.exp > currentTime;
-  }
-
-  private getPayload(token: string): any {
-    try {
-      const payloadBase64 = token.split('.')[1];
-      const payloadJson = atob(payloadBase64);
-      return JSON.parse(payloadJson);
-    } catch (e) {
-      return null;
-    }
-  }
 }

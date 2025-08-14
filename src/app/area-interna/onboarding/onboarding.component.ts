@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule, F
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ApiService } from '../../core/services/generic.service';
+import { ApiService } from '../../core/services/api.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -17,7 +17,7 @@ import { EstadosCidadesService } from '../../core/services/estados-cidades.servi
 import { diasUteis } from '../../core/models/diasUteis';
 
 @Component({
-  selector: 'app-cadastro-escritorio',
+  selector: 'app-onboarding',
   standalone: true,
   imports: [
     CommonModule,
@@ -25,10 +25,10 @@ import { diasUteis } from '../../core/models/diasUteis';
     RouterModule,
     FormsModule
   ],
-  templateUrl: './cadastro-escritorio.component.html',
-  styleUrls: ['./cadastro-escritorio.component.scss']
+  templateUrl: './onboarding.component.html',
+  styleUrls: ['./onboarding.component.scss']
 })
-export class CadastroEscritorioComponent implements OnInit {
+export class OnboardingComponent implements OnInit {
   escritorioForm!: FormGroup;
   estados: Estado[] = [];
   siglas: string[] = []; // só as siglas
@@ -109,6 +109,7 @@ export class CadastroEscritorioComponent implements OnInit {
       }
     });
   }
+  
   toggleDia(dia: number): void {
     const index = this.diasSelecionados.indexOf(dia);
     if (index > -1) {

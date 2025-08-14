@@ -4,7 +4,7 @@ import { Observable, catchError, map, of } from 'rxjs';
 import { Helpers } from '../../helpers/helpers';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ApiService {
   private readonly apiUrl = 'https://localhost:44360/api/';
@@ -13,37 +13,38 @@ export class ApiService {
 
   getItems<T>(caminho: string): Observable<T> {
     return this.http.get<T>(this.apiUrl + `${caminho}`, {
-      headers: Helpers.getHttpHeaders(),
+      headers: Helpers.getHttpHeaders(), withCredentials: true
     });
   }
 
   getFiltro<T>(caminho: string, filtro: any): Observable<T> {
     var filtros = this.prepararParametros(filtro);
     return this.http.get<T>(this.apiUrl + `${caminho}` + filtros, {
-      headers: Helpers.getHttpHeaders(),
+      headers: Helpers.getHttpHeaders(), withCredentials: true
     });
   }
 
   postItems(caminho : string, objeto: any) {
     return this.http
       .post(this.apiUrl + `${caminho}`, Helpers.toJson(objeto), {
-        headers: Helpers.getHttpHeaders(),
+        headers: Helpers.getHttpHeaders(), withCredentials: true
       })
       .pipe(map((res) => res));
   }
 
-  postItemsSemToken(caminho : string, objeto: any) {
-    return this.http
-      .post(this.apiUrl + `${caminho}`, Helpers.toJson(objeto), {
-        headers: Helpers.getHttpHeadersSemToken(),
-      })
-      .pipe(map((res) => res));
-  }
+  postItemsSemToken(caminho: string, objeto: any) {
+  return this.http
+    .post(this.apiUrl + `${caminho}`, Helpers.toJson(objeto), {
+      headers: Helpers.getHttpHeadersSemToken(),
+      withCredentials: true // ⚠️ importante!
+    })
+    .pipe(map((res) => res));
+}
 
   deleteItem(caminho: string, id: number) {
     return this.http
       .delete(`${this.apiUrl}${caminho}/${id}`, {
-        headers: Helpers.getHttpHeaders(),
+        headers: Helpers.getHttpHeaders(), withCredentials: true
       })
       .pipe(map((res) => res));
   }
@@ -51,7 +52,7 @@ export class ApiService {
   patchItem(caminho: string, body: any) {
     return this.http
       .patch(this.apiUrl + caminho, body, {
-        headers: Helpers.getHttpHeaders(),
+        headers: Helpers.getHttpHeaders(), withCredentials: true
       })
       .pipe(map((res) => res));
   }

@@ -10,7 +10,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import ptBrLocale from '@fullcalendar/core/locales/pt-br'; // Importando o idioma
 import { SidebarService } from '../../core/services/sidebar.service';
 import { RefObject } from '@fullcalendar/core/preact.js';
-import { ApiService } from '../../core/services/generic.service';
+import { ApiService } from '../../core/services/api.service';
 import { Agenda } from '../../core/models/agenda/agenda';
 
 
@@ -39,7 +39,6 @@ export class AgendaComponent implements OnInit {
     },
     plugins: [timeGridPlugin, dayGridPlugin, interactionPlugin], // Habilita a visualização semanal
     handleWindowResize: true,
-    themeSystem: 'bootstrap4',
     height: "85vh",
     headerToolbar: {
       left: 'prev,next today',

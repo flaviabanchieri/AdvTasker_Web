@@ -1,0 +1,83 @@
+.cliente-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.cliente-header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgb(15, 99, 184);
+  margin: 0;
+  padding-bottom: 1rem;
+}
+
+.dados-pessoais {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  background-color: rgb(240, 244, 248);
+  padding: 0.7rem;
+  border-left: 5px solid rgb(15, 99, 184);
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.dados-pessoais .campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dados-pessoais label {
+  font-size: 0.85rem;
+  color: #999;
+  font-weight: 500;
+}
+
+.dados-pessoais span {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #333;
+  padding: 4px 0;
+}
+
+.conteudo {
+  display: flex;
+  gap: 2rem;
+}
+
+.menu-lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 160px;
+}
+
+.menu-lateral button {
+  justify-content: flex-start;
+  text-transform: none;
+  font-weight: 500;
+}
+
+.menu-lateral button.ativo {
+  background-color: rgb(222, 237, 252);
+  border-left: 4px solid rgb(15, 99, 184);
+  color: dodgerblue;
+}
+
+.painel {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 1.5rem;
+  min-height: 200px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.w-100 {
+  width: 100%;
+}
+
+
