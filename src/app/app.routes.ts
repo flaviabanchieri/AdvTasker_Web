@@ -22,6 +22,7 @@ import { ExplorarComponent } from './area-interna/explorar/explorar/explorar.com
 import { NotificacaoComponent } from './area-interna/notificações/notificacao/notificacao.component';
 import { CadastroUsuarioComponent } from './area-externa/cadastro-usuario/cadastro-usuario.component';
 import { WelcomeComponent } from './area-interna/welcome/welcome.component';
+import { ClienteCadastroComponent } from './area-interna/clientes/cliente-cadastro/cliente-cadastro.component';
 import { OnboardingComponent } from './area-interna/onboarding/onboarding.component';
 import { OnboardingGuard } from './area-interna/onboarding/guard/onboarding.guard';
 import { ClienteComponent } from './area-interna/clientes/cliente/cliente.component';
@@ -42,7 +43,6 @@ export const routes: Routes = [
       { path: 'tarefas', component: MinhasTarefasComponent, data: { title: 'Minhas tarefas' } },
       { path: 'tarefas/gerenciar', component: GerenciarTarefasComponent, data: { title: 'Tarefas > Gerenciar' } },
       { path: 'clientes', component: ClientesComponent, data: { title: 'Clientes' } },
-      { path: 'cliente/:id', component: ClienteComponent, data: { title: 'Clientes' } },
       { path: 'clientes/criar', component: ClientesCriarComponent, data: { title: 'Clientes > Criar' } },
       { path: 'clientes/editar', component: ClientesEditarComponent, data: { title: 'Clientes > Editar' } },
       { path: 'processos', component: ProcessosComponent, data: { title: 'Processos' } },
