@@ -1,13 +1,18 @@
-import { AgendaCliente } from "./agenda/agendaCliente";
-import { Endereco } from "./endereco";
-import { Parte } from "./processo/parte";
-
 export interface Cliente {
   id: string;
   nome: string;
-  cpfCnpj: string;
+  documento: string;
   email: string;
   telefone: string;
-  processosAtivos: number;
+  numeroProcessos: number;
+  status: 'Ativo' | 'Inativo' | 'Pendente';
+}
+
+export interface CasdastroCliente {
+  id: string;
+  nome: string;
+  documento: string;
+  email: string; 
+  telefone: string;
   status: 'Ativo' | 'Inativo' | 'Pendente';
 }

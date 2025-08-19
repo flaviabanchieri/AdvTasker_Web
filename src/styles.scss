@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-
+@import "@fortawesome/fontawesome-free/css/all.min.css";
 @import 'material-icons/iconfont/material-icons.css';
 @import 'ngx-toastr/toastr';
 @import "bootstrap/scss/functions";
@@ -15,6 +15,7 @@
 body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
+  background-color: #f8faff;
 }
 
 p{

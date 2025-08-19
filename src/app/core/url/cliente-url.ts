@@ -1,3 +1,5 @@
 export const ClienteUrl ={
-    ListarClientes: "Cliente"
+    ListarClientes: "Cliente",
+    ObterCliente: "cliente/ObterCliente/",
+    Cadastrar: "cliente/Cadastro"
 }
