@@ -34,13 +34,13 @@ export class ClientesCriarComponent implements OnInit {
 
       // Pessoa Física
       nome: [''],
-      rg: [''],
-      orgaoEmissor: [''],
-      dataEmissaoRg: [''],
-      nascimento: [''],
+      rg: [null],
+      emissaoRG: [''],
+      dataEmissaoRg: [null],
+      nascimento: [null],
       estadoCivil: [''],
       profissao: [''],
-      genero: [''],
+      genero: [null],
 
       // Pessoa Jurídica
       razaoSocial: [''],
@@ -61,12 +61,12 @@ export class ClientesCriarComponent implements OnInit {
     const controls = this.formCliente.controls;
 
     // Resetar todos os validators primeiro
-    controls['nomeCompleto'].clearValidators();
+    controls['nome'].clearValidators();
     controls['razaoSocial'].clearValidators();
 
     // Campos obrigatórios conforme o tipo
     if (tipo === 1) {
-      controls['nomeCompleto'].setValidators([Validators.required]);
+      controls['nome'].setValidators([Validators.required]);
     } else if (tipo === 2) {
       controls['razaoSocial'].setValidators([Validators.required]);
     }
@@ -88,6 +88,10 @@ export class ClientesCriarComponent implements OnInit {
 
       if (formData.nascimento) {
         formData.nascimento = new Date(formData.nascimento).toISOString(); // "2025-08-19T00:00:00.000Z"
+      }
+
+      if (formData.dataEmissaoRg) {
+        formData.dataEmissaoRg = new Date(formData.dataEmissaoRg).toISOString();
       }
 
       this.apiService.postItems(ClienteUrl.Cadastrar, formData).subscribe({
