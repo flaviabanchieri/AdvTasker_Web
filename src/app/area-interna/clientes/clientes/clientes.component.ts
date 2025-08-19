@@ -74,6 +74,9 @@ export class ClientesComponent implements OnInit {
     });
   }
 
+  criarCliente(){
+    this.router.navigate([`/clientes/criar`]);
+  }
   obterClientes() {
     const filtros = this.formFiltro.value;
     this.apiService.getFiltro<ResultadoBusca<Cliente>>(ClienteUrl.ListarClientes, filtros).subscribe((clientes: ResultadoBusca<Cliente>) => {

@@ -11,6 +11,12 @@ import { ClientesEditarComponent } from "../clientes-editar/clientes-editar.comp
 import { ClienteEnderecoComponent } from "./cliente-endereco/cliente-endereco.component";
 import { ClienteProcessosComponent } from "./cliente-processos/cliente-processos.component";
 import { ClienteAnotacoesComponent } from "./cliente-anotacoes/cliente-anotacoes.component";
+import { ClienteAgendaComponent } from "./cliente-agenda/cliente-agenda.component";
+import { ApiService } from '../../../core/services/api.service';
+import { ClienteUrl } from '../../../core/url/cliente-url';
+import { CasdastroCliente, Cliente } from '../../../core/models/cliente';
+import { ActivatedRoute } from '@angular/router';
+import { ClienteFinanceiroComponent } from "./cliente-financeiro/cliente-financeiro.component";
 
 @Component({
   selector: 'app-cliente',
@@ -27,20 +33,29 @@ import { ClienteAnotacoesComponent } from "./cliente-anotacoes/cliente-anotacoes
     ClienteContatosComponent,
     ClienteEnderecoComponent,
     ClienteProcessosComponent,
-    ClienteAnotacoesComponent
+    ClienteAnotacoesComponent,
+    ClienteAgendaComponent,
+    ClienteFinanceiroComponent
 ]
 })
 export class ClienteComponent implements OnInit {
   form!: FormGroup;
-  abas: string[] = ['Contatos', 'Endereços', 'Processos', 'Anotações'];
-  abaAtiva: string = 'Contatos';
-  clienteId: number = 1;
+  abas: string[] = ['Processos', 'Endereços', 'Contatos', 'Agenda', 'Financeiro','Anotações'];
+  abaAtiva: string = 'Processos';
+  clienteId!: string;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private apiService: ApiService, private route: ActivatedRoute) {
+    this.clienteId = this.route.snapshot.paramMap.get('id')!;
+   }
 
-  ngOnInit(): void {
+  ngOnInit(){
+    this.construirFormulario();
+    this.obterCliente();
+  }
+  
+  construirFormulario()
+  {
     this.form = this.fb.group({
-      dadosPessoais: this.fb.group({
         nomeCompleto: ['', Validators.required],
         cpfCnpj: ['', Validators.required],
         rg: [''],
@@ -49,18 +64,21 @@ export class ClienteComponent implements OnInit {
         estadoCivil: [''],
         telefone: [''],
         email: ['']
-      }),
-      anotacoes: [''],
-      processos: this.fb.array([]),
-      agendas: this.fb.array([]),
-      financeiro: this.fb.group({
-        saldo: [0],
-        pendencias: [[]],
-        historico: [[]]
       })
-    });
   }
 
+  obterCliente() {
+  this.apiService.getItems<CasdastroCliente>(ClienteUrl.ObterCliente + this.clienteId)
+    .subscribe((cliente: CasdastroCliente) => {
+      console.log(cliente)
+      this.form.patchValue({
+          nomeCompleto: cliente.nome,
+          cpfCnpj: cliente.documento,
+          telefone: cliente.telefone,
+          email: cliente.email
+      });
+    });
+}
 
   get processos(): FormArray {
     return this.form.get('processos') as FormArray;
