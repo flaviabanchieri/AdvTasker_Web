@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
-import { CommonModule } from '@angular/common';
+
 import { ClienteContatosComponent } from "./cliente-contatos/cliente-contatos.component";
 import { ClientesEditarComponent } from "../clientes-editar/clientes-editar.component";
 import { ClienteEnderecoComponent } from "./cliente-endereco/cliente-endereco.component";
@@ -29,7 +29,6 @@ import { ClienteDadosGeraisComponent } from "./cliente-dados-gerais/cliente-dado
     MatButtonModule,
     MatCheckboxModule,
     MatTabsModule,
-    CommonModule,
     ClienteContatosComponent,
     ClienteEnderecoComponent,
     ClienteProcessosComponent,

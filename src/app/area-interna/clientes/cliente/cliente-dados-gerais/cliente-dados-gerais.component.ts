@@ -5,14 +5,13 @@ import { CasdastroCliente } from '../../../../core/models/cliente';
 import { ApiService } from '../../../../core/services/api.service';
 import { ClienteUrl } from '../../../../core/url/cliente-url';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-cliente-dados-gerais',
   templateUrl: './cliente-dados-gerais.component.html',
   styleUrls: ['./cliente-dados-gerais.component.css'],
-  imports: [FormsModule,
-    ReactiveFormsModule, CommonModule]
+  imports: [FormsModule, ReactiveFormsModule]
 })
 export class ClienteDadosGeraisComponent implements OnInit {
 

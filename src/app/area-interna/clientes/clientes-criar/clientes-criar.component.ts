@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -12,10 +12,9 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './clientes-criar.component.html',
   styleUrls: ['./clientes-criar.component.css'],
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     RouterModule
-  ],
+],
 })
 export class ClientesCriarComponent implements OnInit {
 

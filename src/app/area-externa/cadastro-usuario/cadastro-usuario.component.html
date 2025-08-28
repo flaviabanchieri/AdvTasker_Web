@@ -15,22 +15,30 @@
         <input formControlName="email" type="email" id="email" placeholder="Digite seu e-mail" required>
         <!-- Mensagem de erro para o campo de e-mail -->
         <div style="color: #ff4d4d; font-size: 12px; margin-top: 5px;">
-          <span *ngIf="usuarioVazio">E-mail é obrigatório.</span>
+          @if (usuarioVazio) {
+            <span>E-mail é obrigatório.</span>
+          }
         </div>
       </div>
       <div class="input-group">
-      <select id="cargo" formControlName="cargo">
-        <option value="" disabled selected>Selecione um cargo</option>
-        <option *ngFor="let cargo of cargos" [ngValue]="cargo.value">{{ cargo.label }}</option>
-      </select>
-    </div>
+        <select id="cargo" formControlName="cargo">
+          <option value="" disabled selected>Selecione um cargo</option>
+          @for (cargo of cargos; track cargo) {
+            <option [ngValue]="cargo.value">{{ cargo.label }}</option>
+          }
+        </select>
+      </div>
       <div class="input-group">
         <label for="senha">Senha</label>
         <input formControlName="senha" type="password" id="senha" placeholder="Digite sua senha" required>
         <!-- Mensagem de erro para o campo de senha -->
         <div style="color: #ff4d4d; font-size: 12px; margin-top: 5px;">
-          <span *ngIf="senhaVazia">Senha é obrigatória.</span>
-          <span *ngIf="senhaIncorreta">Usuário ou Senha Inválidos</span>
+          @if (senhaVazia) {
+            <span>Senha é obrigatória.</span>
+          }
+          @if (senhaIncorreta) {
+            <span>Usuário ou Senha Inválidos</span>
+          }
         </div>
       </div>
       <button type="submit" class="login-button" (click)="onSubmit($event)">Entrar</button>

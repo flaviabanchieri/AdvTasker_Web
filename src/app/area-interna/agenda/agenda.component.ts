@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -18,7 +18,7 @@ import { Agenda } from '../../core/models/agenda/agenda';
   selector: 'app-agenda',
   templateUrl: './agenda.component.html',
   styleUrls: ['./agenda.component.css'],
-  imports: [CommonModule, NgbModule, RouterModule, FullCalendarModule]
+  imports: [NgbModule, RouterModule, FullCalendarModule]
 })
 export class AgendaComponent implements OnInit {
   constructor(private router: Router, private apiService: ApiService) { }

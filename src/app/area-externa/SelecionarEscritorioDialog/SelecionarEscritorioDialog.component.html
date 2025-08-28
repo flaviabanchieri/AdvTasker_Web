@@ -1,27 +1,29 @@
 <h2 mat-dialog-title>Selecione um Escritório</h2>
 <div class="office-list">
-    <div *ngFor="let escritorio of data.escritorios" 
-         (click)="selecionar(escritorio.escritorio.id)"
-         [class.selected]="escritorioSelecionadoId === escritorio.escritorio.id"
-         class="office-item">
-        <div class="office-item-content">
-            <div class="office-icon">
-                <i class="fas fa-building fa-2x"></i>
-            </div>
-            <div class="office-info">
-                <h5 class="office-name">{{escritorio.escritorio.nome}}</h5>
-                <p class="office-location">
-                    <i class="fas fa-map-marker-alt"></i>
-                    {{escritorio.escritorio.cnpj || "Escritório"}}
-                </p>
-            </div>
+  @for (escritorio of data.escritorios; track escritorio) {
+    <div
+      (click)="selecionar(escritorio.escritorio.id)"
+      [class.selected]="escritorioSelecionadoId === escritorio.escritorio.id"
+      class="office-item">
+      <div class="office-item-content">
+        <div class="office-icon">
+          <i class="fas fa-building fa-2x"></i>
         </div>
+        <div class="office-info">
+          <h5 class="office-name">{{escritorio.escritorio.nome}}</h5>
+          <p class="office-location">
+            <i class="fas fa-map-marker-alt"></i>
+            {{escritorio.escritorio.cnpj || "Escritório"}}
+          </p>
+        </div>
+      </div>
     </div>
+  }
 </div>
 
 <mat-dialog-actions align="end">
-    <button class="cancelar" mat-button mat-dialog-close>Cancelar</button>
-    <button class="confirmar" mat-button color="primary" (click)="confirmar()" [disabled]="!escritorioSelecionadoId">
-        Confirmar
-    </button>
+  <button class="cancelar" mat-button mat-dialog-close>Cancelar</button>
+  <button class="confirmar" mat-button color="primary" (click)="confirmar()" [disabled]="!escritorioSelecionadoId">
+    Confirmar
+  </button>
 </mat-dialog-actions>

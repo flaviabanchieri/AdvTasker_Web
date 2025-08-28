@@ -1,38 +1,41 @@
 <div class="container">
   <<a class="btn" [routerLink]="'/tarefas/criar'">
-    <p>+ Criar</p>
-  </a>>
-  <div class="header-card">
-    <div class="metric-card">
-      <div class="metric-value">{{ totaltarefas }}</div>
-      <div class="metric-label">Quantidade de tarefas</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-value">{{ tarefasAtrasados }}</div>
-      <div class="metric-label">tarefas Atrasados</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-value">{{ tarefasFataisHoje }}</div>
-      <div class="metric-label">tarefas Fatais Hoje</div>
-    </div>
+  <p>+ Criar</p>
+</a>>
+<div class="header-card">
+  <div class="metric-card">
+    <div class="metric-value">{{ totaltarefas }}</div>
+    <div class="metric-label">Quantidade de tarefas</div>
   </div>
+  <div class="metric-card">
+    <div class="metric-value">{{ tarefasAtrasados }}</div>
+    <div class="metric-label">tarefas Atrasados</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value">{{ tarefasFataisHoje }}</div>
+    <div class="metric-label">tarefas Fatais Hoje</div>
+  </div>
+</div>
 
-  <mat-card class="tarefas-list-card">
-    <mat-card-header>
-      <mat-card-title>Meus tarefas</mat-card-title>
-    </mat-card-header>
+<mat-card class="tarefas-list-card">
+  <mat-card-header>
+    <mat-card-title>Meus tarefas</mat-card-title>
+  </mat-card-header>
 
-    <mat-divider></mat-divider>
+  <mat-divider></mat-divider>
 
-    <mat-card-content>
-      <div class="tarefas-list">
-        <div class="tarefa-item" *ngFor="let tarefa of tarefas; trackBy: trackById" [ngClass]="{'atrasado': isAtrasado(tarefa)}">
+  <mat-card-content>
+    <div class="tarefas-list">
+      @for (tarefa of tarefas; track trackById($index, tarefa)) {
+        <div class="tarefa-item" [ngClass]="{'atrasado': isAtrasado(tarefa)}">
           <div class="tarefa-info">
             <h3>{{ tarefa.titulo }}</h3>
             <p>{{ tarefa.descricao }}</p>
             <span class="tarefa-date">
               {{ tarefa.dataFinal | date:'dd/MM/yyyy' }}
-              <mat-icon *ngIf="isAtrasado(tarefa)" class="warning-icon">warning</mat-icon>
+              @if (isAtrasado(tarefa)) {
+                <mat-icon class="warning-icon">warning</mat-icon>
+              }
             </span>
           </div>
           <div class="tarefa-actions">
@@ -47,7 +50,8 @@
             </button>
           </div>
         </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
+      }
+    </div>
+  </mat-card-content>
+</mat-card>
 </div>

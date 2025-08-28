@@ -24,27 +24,31 @@
 
     <mat-card-content>
       <div class="prazos-list">
-        <div class="prazo-item" *ngFor="let prazo of prazos; trackBy: trackById" [ngClass]="{'atrasado': isAtrasado(prazo)}">
-          <div class="prazo-info">
-            <h3>{{ prazo.titulo }}</h3>
-            <p>{{ prazo.descricao }}</p>
-            <span class="prazo-date">
-              {{ prazo.dataFinal | date:'dd/MM/yyyy' }}
-              <mat-icon *ngIf="isAtrasado(prazo)" class="warning-icon">warning</mat-icon>
-            </span>
+        @for (prazo of prazos; track trackById($index, prazo)) {
+          <div class="prazo-item" [ngClass]="{'atrasado': isAtrasado(prazo)}">
+            <div class="prazo-info">
+              <h3>{{ prazo.titulo }}</h3>
+              <p>{{ prazo.descricao }}</p>
+              <span class="prazo-date">
+                {{ prazo.dataFinal | date:'dd/MM/yyyy' }}
+                @if (isAtrasado(prazo)) {
+                  <mat-icon class="warning-icon">warning</mat-icon>
+                }
+              </span>
+            </div>
+            <div class="prazo-actions">
+              <button mat-icon-button (click)="toggleConcluido(prazo)">
+                <mat-icon>{{ prazo.concluido ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+              </button>
+              <button mat-icon-button (click)="editarPrazo(prazo)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="excluirPrazo(prazo)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
           </div>
-          <div class="prazo-actions">
-            <button mat-icon-button (click)="toggleConcluido(prazo)">
-              <mat-icon>{{ prazo.concluido ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
-            </button>
-            <button mat-icon-button (click)="editarPrazo(prazo)">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button (click)="excluirPrazo(prazo)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </div>
-        </div>
+        }
       </div>
     </mat-card-content>
   </mat-card>

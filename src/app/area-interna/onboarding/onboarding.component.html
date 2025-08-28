@@ -16,37 +16,43 @@
           <label for="fim">Estado</label>
           <select formControlName="estado" [(ngModel)]="siglaSelecionada" (change)="onSiglaChange()">
             <option value="">Selecione um estado</option>
-            <option *ngFor="let sigla of siglas" [value]="sigla">{{ sigla }}</option>
+            @for (sigla of siglas; track sigla) {
+              <option [value]="sigla">{{ sigla }}</option>
+            }
           </select>
         </div>
         <div class="input-group cidade">
           <label for="fim">Cidade</label>
           <select formControlName="cidade" [disabled]="!cidades.length">
             <option value="">Selecione uma cidade</option>
-            <option *ngFor="let cidade of cidades">{{ cidade }}</option>
+            @for (cidade of cidades; track cidade) {
+              <option>{{ cidade }}</option>
+            }
           </select>
         </div>
       </div>
       <div class="dias-atendimento">
         <label>Quais dias você atende?</label>
         <div class="dias-opcoes">
-          <button *ngFor="let dia of diasSemana" [class.selected]="diasSelecionados.includes(dia.value)"
-            (click)="toggleDia(dia.value)" type="button">
-            {{ dia.label }}
-          </button>
+          @for (dia of diasSemana; track dia) {
+            <button [class.selected]="diasSelecionados.includes(dia.value)"
+              (click)="toggleDia(dia.value)" type="button">
+              {{ dia.label }}
+            </button>
+          }
         </div>
       </div>
       <br>
-      <button class="btn selected" (click)="finalizar()">Próximo</button>
-    </form>
-  </div>
+        <button class="btn selected" (click)="finalizar()">Próximo</button>
+      </form>
+    </div>
 
-  <div class="right">
-    <h2>Bem-vindo a AdvTasker! 🚀</h2>
-    <p>
-      Parabéns! Agora você faz parte da comunidade AdvTasker. Desfrute de recursos
-      exclusivos e uma experiência incrível.
-    </p>
-    <img src="welcome.svg" alt="Welcome" class="illustration" />
+    <div class="right">
+      <h2>Bem-vindo a AdvTasker! 🚀</h2>
+      <p>
+        Parabéns! Agora você faz parte da comunidade AdvTasker. Desfrute de recursos
+        exclusivos e uma experiência incrível.
+      </p>
+      <img src="welcome.svg" alt="Welcome" class="illustration" />
+    </div>
   </div>
-</div>

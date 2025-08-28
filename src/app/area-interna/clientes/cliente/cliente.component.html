@@ -8,37 +8,52 @@
   <div class="conteudo">
     <!-- Menu lateral -->
     <nav class="menu-lateral">
-      <button mat-button *ngFor="let aba of abas" (click)="abaAtiva = aba" [class.ativo]="abaAtiva === aba">
-        {{ aba }}
-      </button>
+      @for (aba of abas; track aba) {
+        <button mat-button (click)="abaAtiva = aba" [class.ativo]="abaAtiva === aba">
+          {{ aba }}
+        </button>
+      }
     </nav>
 
     <!-- Painel com conteúdo da aba ativa -->
     <section class="painel">
-      <ng-container [ngSwitch]="abaAtiva">
-        <div *ngSwitchCase="'Dados Gerais'">
-          <app-cliente-dados-gerais [clienteId]="clienteId"></app-cliente-dados-gerais>
-        </div>
-        <div *ngSwitchCase="'Agenda'">
-          <app-cliente-agenda></app-cliente-agenda>
-        </div>
-        <div *ngSwitchCase="'Endereços'">
-          <app-cliente-endereco></app-cliente-endereco>
-        </div>
-        <div *ngSwitchCase="'Contatos'">
-          <app-cliente-contatos></app-cliente-contatos>
-        </div>
-        <div *ngSwitchCase="'Financeiro'">
-          <app-cliente-financeiro></app-cliente-financeiro>
-        </div>
-        <div *ngSwitchCase="'Processos'" formArrayName="processos">
-          <app-cliente-processos></app-cliente-processos>
-        </div>
-
-        <div *ngSwitchCase="'Anotações'">
-          <app-cliente-anotacoes></app-cliente-anotacoes>
-        </div>
-      </ng-container>
+      @switch (abaAtiva) {
+        @case ('Dados Gerais') {
+          <div>
+            <app-cliente-dados-gerais [clienteId]="clienteId"></app-cliente-dados-gerais>
+          </div>
+        }
+        @case ('Agenda') {
+          <div>
+            <app-cliente-agenda></app-cliente-agenda>
+          </div>
+        }
+        @case ('Endereços') {
+          <div>
+            <app-cliente-endereco></app-cliente-endereco>
+          </div>
+        }
+        @case ('Contatos') {
+          <div>
+            <app-cliente-contatos></app-cliente-contatos>
+          </div>
+        }
+        @case ('Financeiro') {
+          <div>
+            <app-cliente-financeiro></app-cliente-financeiro>
+          </div>
+        }
+        @case ('Processos') {
+          <div formArrayName="processos">
+            <app-cliente-processos></app-cliente-processos>
+          </div>
+        }
+        @case ('Anotações') {
+          <div>
+            <app-cliente-anotacoes></app-cliente-anotacoes>
+          </div>
+        }
+      }
     </section>
   </div>
 

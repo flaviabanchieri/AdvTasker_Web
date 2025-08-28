@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,12 +10,11 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
   templateUrl: './SelecionarEscritorioDialog.component.html',
   styleUrls: ['./SelecionarEscritorioDialog.component.css'],
   imports: [
-    CommonModule,
     MatDialogModule,
     MatButtonModule,
     MatListModule,
     FormsModule
-  ],
+],
 })
 export class SelecionarEscritorioDialogComponent implements OnInit {
   escritorioSelecionadoId: string | undefined;

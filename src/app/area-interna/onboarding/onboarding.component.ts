@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule, FormArray } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from '../../core/services/api.service';
@@ -20,11 +20,10 @@ import { diasUteis } from '../../core/models/diasUteis';
   selector: 'app-onboarding',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     RouterModule,
     FormsModule
-  ],
+],
   templateUrl: './onboarding.component.html',
   styleUrls: ['./onboarding.component.scss']
 })
