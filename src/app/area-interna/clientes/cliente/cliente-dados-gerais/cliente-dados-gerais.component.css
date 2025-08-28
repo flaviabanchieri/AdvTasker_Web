@@ -1,0 +1,12 @@
+.ficha-cadastral label {
+  font-size: 0.9rem;
+  color: #6c757d; /* cinza suave */
+  letter-spacing: 0.5px;
+}
+
+.ficha-cadastral span {
+  font-size: 1rem;
+  font-weight: 500;
+  display: block;
+  margin-top: 4px; /* espaço extra entre label e valor */
+}

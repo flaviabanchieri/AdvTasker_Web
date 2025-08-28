@@ -1,40 +1,8 @@
-<div class="cliente-wrapper" [formGroup]="form">
+<div class="cliente-wrapper">
   <!-- Cabeçalho com nome do cliente -->
   <div class="cliente-header">
-    <h1>{{ form.get('nomeCompleto')?.value || 'Nome do Cliente' }}</h1>
+    <h1>{{ nome || 'Nome do Cliente' }}</h1>
   </div>
-
-  <!-- Dados pessoais (somente leitura) -->
-  <section class="dados-pessoais" formGroupName="dadosPessoais">
-    <div class="campo">
-      <label>CPF/CNPJ</label>
-      <span>{{ form.get('cpfCnpj')?.value || '-' }}</span>
-    </div>
-    <div class="campo">
-      <label>RG</label>
-      <span>{{ form.get('rg')?.value || '-' }}</span>
-    </div>
-    <div class="campo">
-      <label>Profissão</label>
-      <span>{{ form.get('profissao')?.value || '-' }}</span>
-    </div>
-    <div class="campo">
-      <label>Nacionalidade</label>
-      <span>{{ form.get('nacionalidade')?.value || '-' }}</span>
-    </div>
-    <div class="campo">
-      <label>Estado civil</label>
-      <span>{{ form.get('estadoCivil')?.value || '-' }}</span>
-    </div>
-    <div class="campo">
-      <label>Email</label>
-      <span>{{ form.get('email')?.value || '-' }}</span>
-    </div>
-    <div class="campo">
-      <label>Telefone</label>
-      <span>{{ form.get('telefone')?.value || '-' }}</span>
-    </div>
-  </section>
 
   <!-- Área principal com menu lateral + painel -->
   <div class="conteudo">
@@ -48,6 +16,9 @@
     <!-- Painel com conteúdo da aba ativa -->
     <section class="painel">
       <ng-container [ngSwitch]="abaAtiva">
+        <div *ngSwitchCase="'Dados Gerais'">
+          <app-cliente-dados-gerais [clienteId]="clienteId"></app-cliente-dados-gerais>
+        </div>
         <div *ngSwitchCase="'Agenda'">
           <app-cliente-agenda></app-cliente-agenda>
         </div>

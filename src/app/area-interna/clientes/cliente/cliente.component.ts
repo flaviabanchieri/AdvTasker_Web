@@ -17,6 +17,7 @@ import { ClienteUrl } from '../../../core/url/cliente-url';
 import { CasdastroCliente, Cliente } from '../../../core/models/cliente';
 import { ActivatedRoute } from '@angular/router';
 import { ClienteFinanceiroComponent } from "./cliente-financeiro/cliente-financeiro.component";
+import { ClienteDadosGeraisComponent } from "./cliente-dados-gerais/cliente-dados-gerais.component";
 
 @Component({
   selector: 'app-cliente',
@@ -24,7 +25,6 @@ import { ClienteFinanceiroComponent } from "./cliente-financeiro/cliente-finance
   styleUrls: ['./cliente.component.css'],
   imports: [
     ReactiveFormsModule,
-    MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -35,60 +35,31 @@ import { ClienteFinanceiroComponent } from "./cliente-financeiro/cliente-finance
     ClienteProcessosComponent,
     ClienteAnotacoesComponent,
     ClienteAgendaComponent,
-    ClienteFinanceiroComponent
+    ClienteFinanceiroComponent,
+    ClienteDadosGeraisComponent
 ]
 })
 export class ClienteComponent implements OnInit {
-  form!: FormGroup;
-  abas: string[] = ['Processos', 'Endereços', 'Contatos', 'Agenda', 'Financeiro','Anotações'];
-  abaAtiva: string = 'Processos';
+  abas: string[] = ['Dados Gerais', 'Processos', 'Endereços', 'Contatos', 'Agenda', 'Financeiro', 'Anotações'];
+  abaAtiva: string = 'Dados Gerais';
   clienteId!: string;
+  nome!: string;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private route: ActivatedRoute) {
+  constructor(private apiService: ApiService, private route: ActivatedRoute) {
     this.clienteId = this.route.snapshot.paramMap.get('id')!;
-   }
+  }
 
-  ngOnInit(){
-    this.construirFormulario();
+  ngOnInit() {
     this.obterCliente();
   }
-  
-  construirFormulario()
-  {
-    this.form = this.fb.group({
-        nomeCompleto: ['', Validators.required],
-        cpfCnpj: ['', Validators.required],
-        rg: [''],
-        profissao: [''],
-        nacionalidade: [''],
-        estadoCivil: [''],
-        telefone: [''],
-        email: ['']
-      })
-  }
+
 
   obterCliente() {
-  this.apiService.getItems<CasdastroCliente>(ClienteUrl.ObterCliente + this.clienteId)
-    .subscribe((cliente: CasdastroCliente) => {
-      console.log(cliente)
-      this.form.patchValue({
-          nomeCompleto: cliente.nome,
-          cpfCnpj: cliente.documento,
-          telefone: cliente.telefone,
-          email: cliente.email
+    this.apiService.getItems<CasdastroCliente>(ClienteUrl.ObterCliente + this.clienteId)
+      .subscribe((cliente: CasdastroCliente) => {
+        console.log(cliente)
+        this.nome = cliente.nome
       });
-    });
-}
-
-  get processos(): FormArray {
-    return this.form.get('processos') as FormArray;
   }
 
-  get agendas(): FormArray {
-    return this.form.get('agendas') as FormArray;
-  }
-
-  salvar(): void {
-    console.log(this.form.value);
-  }
 }

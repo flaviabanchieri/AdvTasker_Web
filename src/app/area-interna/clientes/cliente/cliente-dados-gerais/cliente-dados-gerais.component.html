@@ -1,0 +1,44 @@
+<div [formGroup]="form">
+  <div class="card border-0">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+      <div class="row">
+        <span> <b>Nome Completo: </b>{{ form.get('nomeCompleto')?.value || '-' }}</span>
+      </div>
+      <button class="btn btn-sm btn-outline-primary d-flex align-items-center">
+        <i class="fas fa-edit me-1"></i>
+      </button>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <p class="fw-bold d-block mb-1">CPF/CNPJ</p>
+          <span>{{ form.get('cpfCnpj')?.value || '-' }}</span>
+        </div>
+        <div class="col-md-6 mb-3">
+          <p class="fw-bold d-block mb-1">RG</p>
+          <span>{{ form.get('rg')?.value || '-' }}</span>
+        </div>
+        <div class="col-md-6 mb-3">
+          <p class="fw-bold d-block mb-1">Profissão</p>
+          <span>{{ form.get('profissao')?.value || '-' }}</span>
+        </div>
+        <div class="col-md-6 mb-3">
+          <p class="fw-bold d-block mb-1">Nacionalidade</p>
+          <span>{{ form.get('nacionalidade')?.value || '-' }}</span>
+        </div>
+        <div class="col-md-6 mb-3">
+          <p class="fw-bold d-block mb-1">Estado Civil</p>
+          <span>{{ form.get('estadoCivil')?.value || '-' }}</span>
+        </div>
+        <div class="col-md-6 mb-3">
+          <p class="fw-bold d-block mb-1">Email principal</p>
+          <span>{{ form.get('email')?.value || '-' }}</span>
+        </div>
+        <div class="col-md-6 mb-3">
+          <p class="fw-bold d-block mb-1">Telefone principal</p>
+          <span>{{ form.get('telefone')?.value || '-' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
