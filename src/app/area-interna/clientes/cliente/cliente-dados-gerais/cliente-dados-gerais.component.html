@@ -1,8 +1,9 @@
-<div [formGroup]="form">
+@if (tipoPessoa == 1) {
+  <div [formGroup]="pessoaFisicaForm">
   <div class="card border-0">
     <div class="card-header bg-white d-flex justify-content-between align-items-center">
       <div class="row">
-        <span> <b>Nome Completo: </b>{{ form.get('nomeCompleto')?.value || '-' }}</span>
+        <span> <b>Nome Completo: </b>{{ pessoaFisicaForm.get('nomeCompleto')?.value || '-' }}</span>
       </div>
       <button class="btn btn-sm btn-outline-primary d-flex align-items-center">
         <i class="fas fa-edit me-1"></i>
@@ -12,33 +13,93 @@
       <div class="row">
         <div class="col-md-6 mb-3">
           <p class="fw-bold d-block mb-1">CPF/CNPJ</p>
-          <span>{{ form.get('cpfCnpj')?.value || '-' }}</span>
+          <span>{{ pessoaFisicaForm.get('cpfCnpj')?.value || '-' }}</span>
         </div>
         <div class="col-md-6 mb-3">
           <p class="fw-bold d-block mb-1">RG</p>
-          <span>{{ form.get('rg')?.value || '-' }}</span>
+          <span>{{ pessoaFisicaForm.get('rg')?.value || '-' }}</span>
         </div>
         <div class="col-md-6 mb-3">
           <p class="fw-bold d-block mb-1">Profissão</p>
-          <span>{{ form.get('profissao')?.value || '-' }}</span>
+          <span>{{ pessoaFisicaForm.get('profissao')?.value || '-' }}</span>
         </div>
         <div class="col-md-6 mb-3">
           <p class="fw-bold d-block mb-1">Nacionalidade</p>
-          <span>{{ form.get('nacionalidade')?.value || '-' }}</span>
+          <span>{{ pessoaFisicaForm.get('nacionalidade')?.value || '-' }}</span>
         </div>
         <div class="col-md-6 mb-3">
           <p class="fw-bold d-block mb-1">Estado Civil</p>
-          <span>{{ form.get('estadoCivil')?.value || '-' }}</span>
+          <span>{{ pessoaFisicaForm.get('estadoCivil')?.value || '-' }}</span>
         </div>
         <div class="col-md-6 mb-3">
           <p class="fw-bold d-block mb-1">Email principal</p>
-          <span>{{ form.get('email')?.value || '-' }}</span>
+          <span>{{ pessoaFisicaForm.get('email')?.value || '-' }}</span>
         </div>
         <div class="col-md-6 mb-3">
           <p class="fw-bold d-block mb-1">Telefone principal</p>
-          <span>{{ form.get('telefone')?.value || '-' }}</span>
+          <span>{{ pessoaFisicaForm.get('telefone')?.value || '-' }}</span>
         </div>
       </div>
     </div>
   </div>
 </div>
+}
+
+@if (tipoPessoa == 2) {
+  <div [formGroup]="pessoaJuridicaForm">
+  <div class="card border-0">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+      <div class="row">
+        <span> <b>Razão Social: </b>{{ pessoaJuridicaForm.get('razaoSocial')?.value || '-' }}</span>
+      </div>
+      <button class="btn btn-sm btn-outline-primary d-flex align-items-center">
+        <i class="fas fa-edit me-1"></i>
+      </button>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <p class="fw-bold d-block mb-1">CNPJ</p>
+          <span>{{ pessoaJuridicaForm.get('cpfCnpj')?.value || '-' }}</span>
+        </div>
+        <div class="col-md-6 mb-3">
+          <p class="fw-bold d-block mb-1">Nome Fantasía</p>
+          <span>{{ pessoaJuridicaForm.get('nomeFantasia')?.value || '-' }}</span>
+        </div>
+        <div class="col-md-6 mb-3">
+          <p class="fw-bold d-block mb-1">Natureza</p>
+          <span>{{ pessoaJuridicaForm.get('natureza')?.value || '-' }}</span>
+        </div>
+        <div class="col-md-6 mb-3">
+          <p class="fw-bold d-block mb-1">Responsável</p>
+          <span>{{ pessoaJuridicaForm.get('responsavel')?.value || '-' }}</span>
+        </div>
+        <div class="col-md-6 mb-3">
+          <p class="fw-bold d-block mb-1">CPF do responsável</p>
+          <span>{{ pessoaJuridicaForm.get('documentoResponsavel')?.value || '-' }}</span>
+        </div>
+        <div class="col-md-6 mb-3">
+          <p class="fw-bold d-block mb-1">RG do responsável/p>
+          <span>{{ pessoaJuridicaForm.get('rgResponsavel')?.value || '-' }}</span>
+        </div>
+        <div class="col-md-6 mb-3">
+          <p class="fw-bold d-block mb-1">Estado civil do responsável</p>
+          <span>{{ pessoaJuridicaForm.get('estadoCivilResponsavel')?.value || '-' }}</span>
+        </div>
+        <div class="col-md-6 mb-3">
+          <p class="fw-bold d-block mb-1">Profissão do responsável</p>
+          <span>{{ pessoaJuridicaForm.get('profissaoResponsavel')?.value || '-' }}</span>
+        </div>
+        <div class="col-md-6 mb-3">
+          <p class="fw-bold d-block mb-1">Cargo do responsável</p>
+          <span>{{ pessoaJuridicaForm.get('cargoResponsavel')?.value || '-' }}</span>
+        </div>
+         <div class="col-md-6 mb-3">
+          <p class="fw-bold d-block mb-1">Endereco do responsável/p>
+          <span>{{ pessoaJuridicaForm.get('enderecoResponsavel')?.value || '-' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}

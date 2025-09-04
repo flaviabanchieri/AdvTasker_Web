@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ApiService } from '../../../core/services/api.service';
 import { ClienteUrl } from '../../../core/url/cliente-url';
 import { REACTIVE_NODE } from '@angular/core/primitives/signals';
@@ -14,40 +14,47 @@ import { ToastrService } from 'ngx-toastr';
   imports: [
     ReactiveFormsModule,
     RouterModule
-],
+  ],
 })
 export class ClientesCriarComponent implements OnInit {
 
   formCliente!: FormGroup;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private toastrService: ToastrService) { }
+  constructor(private router: Router, private fb: FormBuilder, private apiService: ApiService, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.formCliente = this.fb.group({
       tipoPessoa: [1, Validators.required],
-
-      // Comuns
       documento: ['', Validators.required],
-      telefone: ['', Validators.required],
-      email: ['', Validators.email],
-
-      // Pessoa Física
+      telefone: [''],
+      email: ['', [Validators.email]],
       nome: [''],
-      rg: [null],
-      emissaoRG: [''],
-      dataEmissaoRg: [null],
-      nascimento: [null],
-      estadoCivil: [''],
-      profissao: [''],
-      genero: [null],
 
-      // Pessoa Jurídica
-      razaoSocial: [''],
-      nomeFantasia: [''],
-      inscricaoEstadual: [''],
-      inscricaoMunicipal: [''],
-      responsavelLegal: [''],
-      cpfResponsavel: [''],
+
+      pessoaFisica: this.fb.group({
+        rg: [null],
+        emissaoRG: [''],
+        dataEmissaoRg: [null],
+        nascimento: [null],
+        estadoCivil: [''],
+        profissao: [''],
+        genero: [null],
+        nacionalidade: [''],
+      }),
+
+      pessoaJuridica: this.fb.group({
+        razaoSocial: [''],
+        nomeFantasia: [''],
+        natureza: [''],
+        responsavelLegal: [''],
+        cpfResponsavel: [''],
+        estadoCivilResponsavel: [''],
+        profissaoResponsavel: [''],
+        rgResponsavel: [''],
+        dataEmissaoRgResponsavel: [null],
+        enderecoResponsavel: [''],
+        cargoResponsavel: ['']
+      })
     });
 
     // Ajusta validações dinamicamente ao mudar o tipo de pessoa
@@ -57,23 +64,19 @@ export class ClientesCriarComponent implements OnInit {
   }
 
   configurarValidacoes(tipo: number): void {
-    const controls = this.formCliente.controls;
+    const pfGroup = this.formCliente.get('pessoaFisica');
+    const pjGroup = this.formCliente.get('pessoaJuridica');
 
-    // Resetar todos os validators primeiro
-    controls['nome'].clearValidators();
-    controls['razaoSocial'].clearValidators();
-
-    // Campos obrigatórios conforme o tipo
-    if (tipo === 1) {
-      controls['nome'].setValidators([Validators.required]);
-    } else if (tipo === 2) {
-      controls['razaoSocial'].setValidators([Validators.required]);
+    if (tipo === 1) { // Pessoa Física
+      pfGroup?.get('nome')?.setValidators([Validators.required]);
+      pjGroup?.get('razaoSocial')?.clearValidators();
+    } else { // Pessoa Jurídica
+      pfGroup?.get('nome')?.clearValidators();
+      pjGroup?.get('razaoSocial')?.setValidators([Validators.required]);
     }
 
-    // Atualizar validações
-    for (let control in controls) {
-      controls[control].updateValueAndValidity();
-    }
+    pfGroup?.updateValueAndValidity();
+    pjGroup?.updateValueAndValidity();
   }
 
   toggleForm(tipo: number) {
@@ -85,6 +88,10 @@ export class ClientesCriarComponent implements OnInit {
     if (this.formCliente.valid) {
       const formData = this.formCliente.value;
 
+      if (formData.tipoPessoa == 2) {
+        formData.nome = formData.pessoaJuridica.nomeFantasia;
+      }
+
       if (formData.nascimento) {
         formData.nascimento = new Date(formData.nascimento).toISOString(); // "2025-08-19T00:00:00.000Z"
       }
@@ -94,16 +101,23 @@ export class ClientesCriarComponent implements OnInit {
       }
 
       this.apiService.postItems(ClienteUrl.Cadastrar, formData).subscribe({
-        next: (response) => {
-          console.log(response)
+        next: (response: any) => {
+          this.toastrService.success(response.message);
+          this.router.navigate([`/cliente/${response.data}`]);
         },
         error: (err) => {
-          this.toastrService.error(err)
+          console.log(err)
+          if (err.status === 400 && err.error?.message) {
+            this.toastrService.warning(err.error.message); // Mostra: "Já existe um cliente com este documento."
+          } else {
+            this.toastrService.warning('Ocorreu um erro inesperado.');
+          }
         }
       });
     }
+  }
 
-    // Aqui você pode chamar seu serviço para salvar:
-    // this.apiService.salvarCliente(clienteData).subscribe(...)
+  cancelar(){
+    this.router.navigate(['/clientes'])
   }
 }

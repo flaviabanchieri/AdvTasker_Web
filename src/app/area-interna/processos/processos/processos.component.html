@@ -1,3 +1,97 @@
-<p>
-  processos works!
-</p>
+<main class="content">
+  <div class="row mb-3">
+    <div class="d-flex justify-content-between align-items-center w-100">
+      <h1 class="m-0">Meus Processos</h1>
+      <button class="btn btn-primary" (click)="criarProcesso()">Cadastrar</button>
+    </div>
+  </div>
+
+  <form [formGroup]="formFiltro" class="filter-form container-fluid">
+
+    <!-- Filtros principais -->
+    <div class="row g-4 mb-3">
+      <div class="col-md-4">
+        <label for="nome" class="form-label">Nome</label>
+        <input id="nome" type="text" formControlName="nome" class="form-control" placeholder="Buscar por nome" />
+      </div>
+
+      <div class="col-md-4">
+        <label for="documento" class="form-label">CPF/CNPJ</label>
+        <input id="documento" type="text" formControlName="documento" class="form-control"
+          placeholder="Buscar por documento" />
+        </div>
+
+        <!-- Botões -->
+        <div class="col-md-4 d-flex justify-content-between align-items-end">
+          <div class="d-flex gap-2" style="align-items: end;">
+            <button (click)="obterProcessos()" class="btn btn-primary" style="height: 50%;">
+              <i class="fas fa-search"></i>
+            </button>
+
+            <button type="button" class="btn btn-outline-danger" style="height: 50%;" (click)="limparFiltros()">
+              <i class="fas fa-eraser"></i>
+            </button>
+
+            <button type="button" class="btn" [ngClass]="mostrarAvancado ? 'btn-secondary' : 'btn-outline-secondary'"
+              style="height: 50%;" (click)="mostrarAvancado = !mostrarAvancado">
+              <i class="fas fa-filter"></i>Avançado
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Filtros avançados -->
+      @if (mostrarAvancado) {
+        <div class="row g-4 mb-4">
+          <div class="col-md-4">
+            <label for="profissao" class="form-label">Profissão</label>
+            <input id="profissao" type="text" formControlName="profissao" class="form-control" />
+          </div>
+          <div class="col-md-4">
+            <label for="classeProcesso" class="form-label">Classe do Processo</label>
+            <select id="classeProcesso" formControlName="classeProcessoId" class="form-select">
+              <option [ngValue]="null">Todas</option>
+              @for (item of listaClasseProcesso; track item) {
+                <option [ngValue]="item.id">
+                  {{ item.nome }}
+                </option>
+              }
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label for="estado" class="form-label">Estado</label>
+            <input id="estado" type="text" formControlName="estado" class="form-control" />
+          </div>
+          <div class="col-md-2">
+            <label for="cidade" class="form-label">Cidade</label>
+            <input id="cidade" type="text" formControlName="cidade" class="form-control" />
+          </div>
+        </div>
+      }
+    </form>
+
+
+
+    <div class="lista-processos">
+      @for (processo of processos; track processo) {
+        <div class="processo-card">
+          <div (click)="irParaProcesso(processo)" class="processo-info">
+            <h2>{{ processo.NumeroProcesso }}</h2>
+            <p>{{ processo.Partes }}</p>
+            <p>{{ processo.Vara }}</p>
+            <p>{{ processo.Comarca }} / {{processo.Estado}}</p>
+            <div class="card-footer">
+              <div class="status">
+                <span class="badge">{{ processo.Classe }}</span>
+                <span class="tag" [ngClass]="statusClass(processo.FaseAtual)">
+                  {{ processo.FaseAtual }}
+                </span>
+              </div>
+              <button class="btn-detalhes">Detalhes</button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </main>

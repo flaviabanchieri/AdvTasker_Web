@@ -10,13 +10,11 @@
         <div class="form-group">
           <label class="form-label required">Tipo de Pessoa</label>
           <div class="btn-group w-100" role="group">
-            <button type="button" class="btn btn-option"
-              [class.active]="formCliente.get('tipoPessoa')?.value === 1"
+            <button type="button" class="btn btn-option" [class.active]="formCliente.get('tipoPessoa')?.value === 1"
               (click)="toggleForm(1)">
               <i class="fas fa-user me-2"></i> Pessoa Física
             </button>
-            <button type="button" class="btn btn-option"
-              [class.active]="formCliente.get('tipoPessoa')?.value === 2"
+            <button type="button" class="btn btn-option" [class.active]="formCliente.get('tipoPessoa')?.value === 2"
               (click)="toggleForm(2)">
               <i class="fas fa-building me-2"></i> Pessoa Jurídica
             </button>
@@ -28,208 +26,220 @@
 
   <!-- Pessoa Física -->
   @if (formCliente.get('tipoPessoa')?.value === 1) {
-    <div class="form-section">
-      <h3 class="section-title">
-        <i class="fas fa-user-tie section-icon"></i>
-        Dados Pessoais
-      </h3>
-      <div class="row">
-        <!-- Coluna 1 -->
-        <div class="col-md-6">
-          <div class="form-group">
-            <label class="form-label required">Nome Completo</label>
-            <input type="text" class="form-control" formControlName="nome" placeholder="Digite o nome completo">
-            <div class="form-hint">Informe o nome como consta no documento</div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="form-label required">CPF</label>
-                <input type="text" class="form-control" formControlName="documento" mask="000.000.000-00"
-                  placeholder="000.000.000-00">
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">RG</label>
-                  <input type="text" class="form-control" formControlName="rg" placeholder="Digite o RG">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">Data de Nascimento</label>
-                  <input type="date" class="form-control" formControlName="nascimento">
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">Gênero</label>
-                  <select class="form-select" formControlName="genero">
-                    <option value="" disabled selected>Selecione</option>
-                    <option value="masculino">Masculino</option>
-                    <option value="feminino">Feminino</option>
-                    <option value="outro">Outro</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Coluna 2 -->
+  <div class="form-section">
+    <h3 class="section-title">
+      <i class="fas fa-user-tie section-icon"></i>
+      Dados Pessoais
+    </h3>
+    <div class="row">
+      
+        <div class="row">
+          <!-- Linha 1 -->
           <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">Estado Civil</label>
-                  <select class="form-select" formControlName="estadoCivil">
-                    <option value="" disabled selected>Selecione</option>
-                    <option value="solteiro">Solteiro(a)</option>
-                    <option value="casado">Casado(a)</option>
-                    <option value="divorciado">Divorciado(a)</option>
-                    <option value="viuvo">Viúvo(a)</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">Profissão</label>
-                  <input type="text" class="form-control" formControlName="profissao" placeholder="Digite a profissão">
-                </div>
-              </div>
+            <div class="form-group">
+              <label class="form-label required">Nome Completo</label>
+              <input type="text" class="form-control" formControlName="nome">
             </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">Órgão Emissor</label>
-                  <input type="text" class="form-control" formControlName="emissaoRG" placeholder="Ex: SSP/SP">
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">Data de Emissão</label>
-                  <input type="date" class="form-control" formControlName="dataEmissaoRg">
-                </div>
-              </div>
+          </div>
+          <div class="col-md-3" [formGroupName]="'pessoaFisica'">
+            <div class="form-group">
+              <label class="form-label">Estado Civil</label>
+              <select class="form-select" formControlName="estadoCivil">
+                <option value="" disabled selected>Selecione</option>
+                <option value="solteiro">Solteiro(a)</option>
+                <option value="casado">Casado(a)</option>
+                <option value="divorciado">Divorciado(a)</option>
+                <option value="viuvo">Viúvo(a)</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3" [formGroupName]="'pessoaFisica'">
+            <div class="form-group">
+              <label class="form-label">Profissão</label>
+              <input type="text" class="form-control" formControlName="profissao">
+            </div>
+          </div>
+
+          <!-- Linha 2 -->
+          <div class="col-md-3">
+            <div class="form-group">
+              <label class="form-label required">CPF</label>
+              <input type="text" class="form-control" formControlName="documento" mask="000.000.000-00">
+            </div>
+          </div>
+          <div class="col-md-3"[formGroupName]="'pessoaFisica'">
+            <div class="form-group">
+              <label class="form-label">RG</label>
+              <input type="text" class="form-control" formControlName="rg">
+            </div>
+          </div>
+          <div class="col-md-3"[formGroupName]="'pessoaFisica'">
+            <div class="form-group">
+              <label class="form-label">Órgão Emissor</label>
+              <input type="text" class="form-control" formControlName="emissaoRG">
+            </div>
+          </div>
+          <div class="col-md-3"[formGroupName]="'pessoaFisica'">
+            <div class="form-group">
+              <label class="form-label">Data de Emissão</label>
+              <input type="date" class="form-control" formControlName="dataEmissaoRg">
+            </div>
+          </div>
+
+          <!-- Linha 3 -->
+          <div class="col-md-3"[formGroupName]="'pessoaFisica'">
+            <div class="form-group">
+              <label class="form-label">Data de Nascimento</label>
+              <input type="date" class="form-control" formControlName="nascimento">
+            </div>
+          </div>
+          <div class="col-md-3"[formGroupName]="'pessoaFisica'">
+            <div class="form-group">
+              <label class="form-label">Gênero</label>
+              <select class="form-select" formControlName="genero">
+                <option value="" disabled selected>Selecione</option>
+                <option [value]="1">Masculino</option>
+                <option [value]="2">Feminino</option>
+                <option [value]="3">Outro</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3"[formGroupName]="'pessoaFisica'">
+            <div class="form-group">
+              <label class="form-label">Nacionalidade</label>
+              <input type="text" class="form-control" formControlName="nacionalidade">
             </div>
           </div>
         </div>
+
+    </div>
+  </div>
+  }
+
+  <!-- Pessoa Jurídica -->
+  @if (formCliente.get('tipoPessoa')?.value === 2) {
+  <div class="form-section">
+    <h3 class="section-title">
+      <i class="fas fa-building section-icon"></i>
+      Dados da Empresa
+    </h3>
+    <div class="row">
+      <div class="col-md-6" [formGroupName]="'pessoaJuridica'">
+        <div class="form-group">
+          <label class="form-label required">Razão Social</label>
+          <input type="text" class="form-control" formControlName="razaoSocial">
+        </div>
       </div>
-    }
+      <div class="col-md-6" [formGroupName]="'pessoaJuridica'">
+        <div class="form-group">
+          <label class="form-label">Nome Fantasia</label>
+          <input type="text" class="form-control" formControlName="nomeFantasia">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label required">CNPJ</label>
+          <input type="text" class="form-control" formControlName="documento" mask="00.000.000/0000-00">
+        </div>
+      </div>
+      <div class="col-md-6" [formGroupName]="'pessoaJuridica'">
+        <div class="form-group">
+          <label class="form-label">Natureza</label>
+          <select class="form-control" formControlName="natureza">
+            <option value="publica">Pública</option>
+            <option value="privada">Privada</option>
+          </select>
+        </div>
+      </div>
+    </div>
 
-    <!-- Pessoa Jurídica -->
-    @if (formCliente.get('tipoPessoa')?.value === 2) {
-      <div class="form-section">
-        <h3 class="section-title">
-          <i class="fas fa-building section-icon"></i>
-          Dados da Empresa
-        </h3>
-        <div class="row">
-          <!-- Coluna 1 -->
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="form-label required">Razão Social</label>
-              <input type="text" class="form-control" formControlName="razaoSocial" placeholder="Nome legal da empresa">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Nome Fantasia</label>
-              <input type="text" class="form-control" formControlName="nomeFantasia" placeholder="Nome comercial">
-            </div>
-            <div class="form-group">
-              <label class="form-label required">CNPJ</label>
-              <input type="text" class="form-control" formControlName="documento" mask="00.000.000/0000-00"
-                placeholder="00.000.000/0000-00">
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label class="form-label">Inscrição Estadual</label>
-                    <input type="text" class="form-control" formControlName="inscricaoEstadual" placeholder="Digite a IE">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label class="form-label">IE Isento?</label>
-                    <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" formControlName="ieIsento">
-                      <label class="form-check-label">Sim</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Coluna 2 -->
-            <div class="col-md-6">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label class="form-label">Data de Fundação</label>
-                    <input type="date" class="form-control" formControlName="dataFundacao">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label class="form-label">Regime Tributário</label>
-                    <select class="form-select" formControlName="regimeTributario">
-                      <option value="" disabled selected>Selecione</option>
-                      <option value="simples">Simples Nacional</option>
-                      <option value="lucro_presumido">Lucro Presumido</option>
-                      <option value="lucro_real">Lucro Real</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="form-label">CNAE Principal</label>
-                <input type="text" class="form-control" formControlName="cnae" placeholder="Código CNAE">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Responsável Legal</label>
-                <input type="text" class="form-control" formControlName="responsavelLegal" placeholder="Nome do responsável">
-              </div>
-              <div class="form-group">
-                <label class="form-label">CPF do Responsável</label>
-                <input type="text" class="form-control" formControlName="cpfResponsavel" mask="000.000.000-00"
-                  placeholder="000.000.000-00">
-                </div>
-              </div>
-            </div>
-          </div>
-        }
+    <!-- Responsável -->
+    <h3 class="section-title mt-3">
+      <i class="fas fa-user-tie section-icon"></i>
+      Responsável
+    </h3>
+    <div class="row" [formGroupName]="'pessoaJuridica'">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Nome do Responsável</label>
+          <input type="text" class="form-control" formControlName="responsavelLegal">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">CPF do Responsável</label>
+          <input type="text" class="form-control" formControlName="cpfResponsavel" mask="000.000.000-00">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Estado Civil do Responsável</label>
+          <input type="text" class="form-control" formControlName="estadoCivilResponsavel">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Profissão do Responsável</label>
+          <input type="text" class="form-control" formControlName="profissaoResponsavel">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">RG do Responsável</label>
+          <input type="text" class="form-control" formControlName="rgResponsavel">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Data de Emissão do RG</label>
+          <input type="date" class="form-control" formControlName="dataEmissaoRgResponsavel">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Endereço do Responsável</label>
+          <input type="text" class="form-control" formControlName="enderecoResponsavel">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Cargo do Responsável</label>
+          <input type="text" class="form-control" formControlName="cargoResponsavel">
+        </div>
+      </div>
+    </div>
+  </div>
+  }
 
-        <!-- Contatos -->
-        <div class="form-section">
-          <h3 class="section-title">
-            <i class="fas fa-address-book section-icon"></i>
-            Informações de Contato
-          </h3>
+  <!-- Contatos -->
+  <div class="form-section">
+    <h3 class="section-title">
+      <i class="fas fa-address-book section-icon"></i>
+      Informações de Contato
+    </h3>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label required">Telefone</label>
+          <input type="tel" class="form-control" formControlName="telefone" mask="(00) 00000-0000">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label required">E-mail</label>
+          <input type="email" class="form-control" formControlName="email">
+        </div>
+      </div>
+    </div>
+  </div>
 
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="form-label required">Telefone</label>
-                <input type="tel" class="form-control" formControlName="telefone" mask="(00) 00000-0000"
-                  placeholder="(00) 00000-0000">
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label required">E-mail</label>
-                  <input type="email" class="form-control" formControlName="email" placeholder="exemplo@dominio.com">
-                  <div class="form-hint">Enviaremos confirmação para este e-mail</div>
-                </div>
-              </div>
-            </div>
-            <div class="form-footer">
-              <button type="button" class="btn btn-outline-secondary">
-                <i class="fas fa-times me-2"></i>Cancelar
-              </button>
-              <button type="submit" class="btn btn-primary" [disabled]="formCliente.invalid">
-                <i class="fas fa-save me-2"></i>Salvar Cliente
-              </button>
-            </div>
-          </div>
-
-          <!-- Rodapé do formulário -->
-
-        </form>
+  <!-- Rodapé do formulário -->
+  <div class="form-footer mt-4">
+    <button type="button" class="btn btn-outline-secondary">
+      <i class="fas fa-times me-2" (click)="cancelar()"></i>Cancelar
+    </button>
+    <button type="submit" class="btn btn-primary" [disabled]="formCliente.invalid">
+      <i class="fas fa-save me-2"></i>Salvar Cliente
+    </button>
+  </div>
+</form>

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime } from 'rxjs';
-import { Cliente } from '../../../core/models/cliente';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { ApiService } from '../../../core/services/api.service';
 import { ClienteUrl } from '../../../core/url/cliente-url';
 import { ResultadoBusca } from '../../../core/models/resultado-busca';
+import { Cliente } from '../../../core/models/cliente/cliente-listagem';
 
 @Component({
   selector: 'app-clientes',

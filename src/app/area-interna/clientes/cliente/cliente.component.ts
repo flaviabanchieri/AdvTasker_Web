@@ -14,10 +14,10 @@ import { ClienteAnotacoesComponent } from "./cliente-anotacoes/cliente-anotacoes
 import { ClienteAgendaComponent } from "./cliente-agenda/cliente-agenda.component";
 import { ApiService } from '../../../core/services/api.service';
 import { ClienteUrl } from '../../../core/url/cliente-url';
-import { CasdastroCliente, Cliente } from '../../../core/models/cliente';
 import { ActivatedRoute } from '@angular/router';
 import { ClienteFinanceiroComponent } from "./cliente-financeiro/cliente-financeiro.component";
 import { ClienteDadosGeraisComponent } from "./cliente-dados-gerais/cliente-dados-gerais.component";
+import { ClienteDadosGerais } from '../../../core/models/cliente/cliente';
 
 @Component({
   selector: 'app-cliente',
@@ -54,9 +54,8 @@ export class ClienteComponent implements OnInit {
 
 
   obterCliente() {
-    this.apiService.getItems<CasdastroCliente>(ClienteUrl.ObterCliente + this.clienteId)
-      .subscribe((cliente: CasdastroCliente) => {
-        console.log(cliente)
+    this.apiService.getItems<ClienteDadosGerais>(ClienteUrl.ObterCliente + this.clienteId)
+      .subscribe((cliente: ClienteDadosGerais) => {
         this.nome = cliente.nome
       });
   }

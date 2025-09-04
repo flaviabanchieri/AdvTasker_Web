@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, resolveForwardRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, map, catchError, of, switchMap } from 'rxjs';
+import { Observable, map, catchError, of, switchMap, throwError } from 'rxjs';
 import { ApiService } from '../services/api.service';
 import { Usuario } from '../models/usuario';
 import { ToastrService } from 'ngx-toastr';
@@ -32,7 +32,6 @@ export class AuthService {
 
     return (this.apiService.postItemsSemToken('auth/login', usuario) as Observable<LoginResponse>).pipe(
       switchMap((response: LoginResponse) => {
-        console.log(response);
         if (response.usuario.usuarioEscritorio.length > 1) {
           const dialogRef = this.dialog.open(SelecionarEscritorioDialogComponent, {
             data: {
@@ -79,8 +78,8 @@ export class AuthService {
           );
         }
       }),
-      catchError(err => {
-        return of({ status: 500, mensagem: 'Erro ao realizar login' });
+      catchError((err: any) => {
+        return throwError(() => err);
       })
     );
   }
