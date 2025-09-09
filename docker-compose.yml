@@ -1,0 +1,11 @@
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        CONFIGURATION: production # ou homolog
+    container_name: angular-app
+    ports:
+      - "8080:80"

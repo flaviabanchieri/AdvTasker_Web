@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment.development';
   providedIn: 'root'
 })
 export class ApiService {
-  private readonly apiUrl = environment.apiUrl;
+  private readonly apiUrl = 'https://cf4kpbbz-44360.brs.devtunnels.ms/api/';
 
   constructor(private http: HttpClient) {}
 
