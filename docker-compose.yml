@@ -6,6 +6,6 @@ services:
       dockerfile: Dockerfile
       args:
         CONFIGURATION: production # ou homolog
-    container_name: angular-app
+    container_name: advtasker-frontend
     ports:
       - "8080:80"
