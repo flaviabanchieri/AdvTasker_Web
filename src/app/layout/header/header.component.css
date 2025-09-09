@@ -15,12 +15,40 @@
 }
 
 .page-info {
-  padding-left: 20px;
+    padding-left: 20px;
     display: flex;
     align-items: center;
     color: #555;
     font-weight: 500;
+
+    .btn-back {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        margin-right: 5px;
+        border: none;
+        background-color: #f0f0f0; 
+        cursor: pointer;
+        font-size: 0.7rem;
+        color: #555;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+            background-color: #007bff; 
+            color: #fff; 
+            transform: scale(1.1); 
+        }
+
+        i {
+            line-height: 1;
+        }
+    }
+
 }
+
 
 .icon {
     font-size: 1.2rem;
@@ -30,15 +58,22 @@
 .user-info {
     display: flex;
     align-items: center;
+
+    .avatar-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #007bff;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 1.2rem;
+    }
 }
 
-.avatar {
-    width: 35px;
-    height: 35px;
-    border-radius: 50px;
-    border: 2px solid #a29bfe;
-    object-fit: cover;
-}
+
 
 .user-text {
     margin-left: 10px;
@@ -47,12 +82,12 @@
 }
 
 .user-name {
-  font-size: 12px;
+    font-size: 12px;
     font-weight: 600;
     color: #333;
 }
 
 .user-email {
-  font-size: 10px;
+    font-size: 10px;
     color: #777;
 }

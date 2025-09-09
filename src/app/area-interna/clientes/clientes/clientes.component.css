@@ -33,10 +33,6 @@
     }
 }
 
-.content {
-    flex: 1;
-    padding: 32px;
-    background: #f9fafb;
 
     .titulo {
         font-size: 26px;
@@ -144,4 +140,3 @@
         }
 
     }
-}

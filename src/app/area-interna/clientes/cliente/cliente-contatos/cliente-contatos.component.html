@@ -1,3 +1,66 @@
-<p>
-  cliente-contatos works!
-</p>
+<div class="contatos-container">
+  <div class="header">
+    <h2>Contatos</h2>
+    <button class="add-btn" (click)="toggleForm()">
+      + Novo Contato
+    </button>
+  </div>
+  <div class="form-container" *ngIf="showForm">
+    <form [formGroup]="contatoForm" (ngSubmit)="salvarContato()">
+      <div class="form-grid">
+        <input formControlName="contato" placeholder="Nome" />
+        <input formControlName="tipoContato" placeholder="Email" type="email" />
+        <input formControlName="observacao" placeholder="Observação (opcional)" />
+        <label class="toggle">
+          <input formControlName="principal" type="checkbox" />
+          <span class="slider"></span>
+          <span class="label-text">Principal</span>
+        </label>
+      </div>
+      <div class="actions">
+        <button type="submit" class="save-btn">Salvar</button>
+        <button type="button" class="cancel-btn" (click)="toggleForm()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+  @if (contatos.length > 0) {
+  <div class="contatos-list">
+    <div class="contato-card" *ngFor="let contato of contatos">
+      <div class="contato-dados">
+        <p class="contato-info">
+          <strong>{{ contato.contato }}</strong>
+        </p>
+        <p class="descricao">{{ contato.tipoContato }}</p>
+
+        <!-- Observação -->
+        <p class="observacao" *ngIf="contato.observacao">
+          Obs: {{ contato.observacao }}
+        </p>
+      </div>
+      <div class="contato-acoes">
+        <div class="tag-principal" *ngIf="contato.principal">
+          Contato principal
+        </div>
+        <div class="acoes">
+          <i class="fas fa-pencil editar" title="Editar"></i>
+          <i class="fas fa-trash deletar" title="Excluir"></i>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  }
+  @else {
+  <ng-template #empty>
+    <p class="empty-msg">Nenhum contato cadastrado ainda.</p>
+  </ng-template>
+  }
+  <!-- Lista de contatos -->
+
+
+  <!-- Caso não tenha contatos -->
+
+
+  <!-- Formulário inline -->
+
+</div>

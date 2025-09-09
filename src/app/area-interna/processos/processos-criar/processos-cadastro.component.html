@@ -1,0 +1,148 @@
+<form [formGroup]="formProcesso" (ngSubmit)="onSubmit()">
+
+  <!-- Dados principais -->
+  <div class="form-section">
+    <h3 class="section-title">
+      <i class="fas fa-file-contract section-icon"></i>
+      Dados do Processo
+    </h3>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label class="form-label required">Número do Processo</label>
+          <input type="text" class="form-control" formControlName="numeroProcesso" placeholder="Formato CNJ">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label class="form-label">Vara</label>
+          <input type="text" class="form-control" formControlName="vara">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label class="form-label">Comarca</label>
+          <input type="text" class="form-control" formControlName="comarca">
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label class="form-label">Estado</label>
+          <input type="text" class="form-control" formControlName="estado" maxlength="2" placeholder="UF">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label class="form-label required">Fase Atual</label>
+          <select class="form-select" formControlName="faseAtual">
+            <option value="" disabled selected>Selecione</option>
+            <option *ngFor="let fase of fases" [value]="fase">{{ fase }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label class="form-label">Classe</label>
+          <ng-select class="form-select" [items]="classesProcesso" bindLabel="nome" bindValue="id" [searchable]="true"
+            placeholder="Selecione a Classe" formControlName="classeId">
+          </ng-select>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label class="form-label required">Area</label>
+          <select class="form-select" formControlName="area">
+             <option value="" disabled selected>Selecione</option>
+            <option *ngFor="let fase of classesProcesso" [value]="fase.id">{{ fase.nome }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detalhes -->
+  <div class="form-section">
+    <h3 class="section-title">
+      <i class="fas fa-gavel section-icon"></i>
+      Detalhes do Processo
+    </h3>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-check mt-4">
+          <input class="form-check-input" type="checkbox" formControlName="justicaGratuita">
+          <label class="form-check-label">Justiça Gratuita</label>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-check mt-4">
+          <input class="form-check-input" type="checkbox" formControlName="segredoJustica">
+          <label class="form-check-label">Segredo de Justiça</label>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-check mt-4">
+          <input class="form-check-input" type="checkbox" formControlName="tutelaAntecipada">
+          <label class="form-check-label">Tutela Antecipada</label>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-check mt-4">
+          <input class="form-check-input" type="checkbox" formControlName="liminarConcedida">
+          <label class="form-check-label">Liminar Concedida</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label class="form-label">Juiz Responsável</label>
+          <input type="text" class="form-control" formControlName="juizResponsavel">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label class="form-label">Data de Distribuição</label>
+          <input type="date" class="form-control" formControlName="dataDistribuicao">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label class="form-label">Valor da Causa</label>
+          <input class="form-control" formControlName="valorCausa">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Observações -->
+  <div class="form-section">
+    <h3 class="section-title">
+      <i class="fas fa-sticky-note section-icon"></i>
+      Observações
+    </h3>
+    <div class="form-group">
+      <textarea class="form-control" rows="4" formControlName="observacoes"
+        placeholder="Observações sobre o processo..."></textarea>
+    </div>
+    <div class="col-md-12 mt-4">
+        <div class="form-group">
+          <label class="form-label">Link para consulta</label>
+          <input class="form-control" formControlName="linkConsulta">
+        </div>
+      </div>
+  </div>
+
+  <!-- Rodapé -->
+  <div class="form-footer mt-4">
+    <button type="button" class="btn btn-outline-secondary" (click)="cancelar()">
+      <i class="fas fa-times me-2"></i>Cancelar
+    </button>
+    <button type="submit" class="btn btn-primary" [disabled]="formProcesso.invalid">
+      <i class="fas fa-save me-2"></i>Salvar Processo
+    </button>
+  </div>
+</form>

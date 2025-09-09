@@ -85,3 +85,8 @@ select{
   color: #333;
   margin-bottom: 8px;
 }
+
+.form-label.required:after {
+  content: " *";
+  color: #dc3545;
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -7,6 +7,8 @@ import { ApiService } from '../../../core/services/api.service';
 import { ClienteUrl } from '../../../core/url/cliente-url';
 import { ResultadoBusca } from '../../../core/models/resultado-busca';
 import { Cliente } from '../../../core/models/cliente/cliente-listagem';
+import { BlockUiService } from '../../../core/services/block-ui.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-clientes',
@@ -19,12 +21,13 @@ import { Cliente } from '../../../core/models/cliente/cliente-listagem';
   ],
 })
 export class ClientesComponent implements OnInit {
+  private blockUi = inject(BlockUiService);
   formFiltro!: FormGroup;
   clientes: Cliente[] = [];
   mostrarAvancado = false;
   listaClasseProcesso: { id: number; nome: string }[] = [];
 
-  constructor(private router: Router, private apiService: ApiService, private fb: FormBuilder) {
+  constructor(private router: Router, private apiService: ApiService, private fb: FormBuilder, private toastrService: ToastrService) {
 
   }
   ngOnInit(): void {
@@ -78,12 +81,22 @@ export class ClientesComponent implements OnInit {
     this.router.navigate([`/clientes/criar`]);
   }
   obterClientes() {
-    const filtros = this.formFiltro.value;
-    this.apiService.getFiltro<ResultadoBusca<Cliente>>(ClienteUrl.ListarClientes, filtros).subscribe((clientes: ResultadoBusca<Cliente>) => {
-      console.log('Clientes filtrados:', clientes);
-      this.clientes = clientes.items;
+  const filtros = this.formFiltro.value;
+  this.blockUi.show();
+  
+  this.apiService.getFiltro<ResultadoBusca<Cliente>>(ClienteUrl.ListarClientes, filtros)
+    .subscribe({
+      next: (clientes: ResultadoBusca<Cliente>) => {
+        this.blockUi.hide();
+        this.clientes = clientes.items;
+      },
+      error: (err) => {
+        this.blockUi.hide();
+        this.toastrService.error('Erro ao obter clientes');
+        console.error('Erro ao obter clientes:', err);
+      }
     });
-  }
+}
 
   statusClass(status: string): string {
     switch (status) {

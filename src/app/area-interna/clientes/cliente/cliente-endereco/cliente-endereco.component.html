@@ -1,3 +1,63 @@
-<p>
-  cliente-endereco works!
-</p>
+<div class="enderecos-container">
+  <div class="header">
+    <h2>Endereços</h2>
+    <button class="add-btn" (click)="toggleForm()">
+      + Novo Endereço
+    </button>
+  </div>
+
+  <div class="form-container" *ngIf="showForm">
+    <form [formGroup]="enderecoForm" (ngSubmit)="salvarEndereco()">
+      <div class="form-grid">
+        <input formControlName="logradouro" placeholder="Logradouro" />
+        <input formControlName="numero" placeholder="Número" />
+        <input formControlName="bairro" placeholder="Bairro" />
+        <input formControlName="cidade" placeholder="Cidade" />
+        <input formControlName="estado" placeholder="UF" maxlength="2" />
+        <input formControlName="cep" placeholder="CEP" />
+        <label class="toggle">
+          <input formControlName="principal" type="checkbox" />
+          <span class="slider"></span>
+          <span class="label-text">Principal</span>
+        </label>
+      </div>
+      <div class="actions">
+        <button type="submit" class="save-btn">Salvar</button>
+        <button type="button" class="cancel-btn" (click)="toggleForm()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Lista de endereços -->
+  <div class="enderecos-list" *ngIf="enderecos.length > 0; else empty">
+    <div class="endereco-card" *ngFor="let endereco of enderecos">
+      <div class="endereco-dados">
+        <p>
+          <strong>{{ endereco.logradouro }}</strong> {{endereco.numero}}
+        </p>
+        <p>{{ endereco.bairro }}</p>
+
+        <!-- Observação -->
+        <p>
+          CEP: {{ endereco.cep }}
+        </p>
+      </div>
+      <div class="endereco-acoes">
+        <div class="tag-principal" *ngIf="endereco.principal">
+          Contato principal
+        </div>
+        <div class="acoes">
+          <i class="fas fa-pencil editar" title="Editar"></i>
+          <i class="fas fa-trash deletar" title="Excluir"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Caso não tenha endereços -->
+  <ng-template #empty>
+    <p class="empty-msg">Nenhum endereço cadastrado ainda.</p>
+  </ng-template>
+
+
+</div>

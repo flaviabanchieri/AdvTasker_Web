@@ -1,12 +1,19 @@
 <header class="header">
   <!-- Ícone e Nome da Página -->
   <div class="page-info">
+    <!-- Botão de voltar -->
+    @if (canGoBack) {
+    <button class="btn-back" (click)="goBack()">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    }
+
     <h1 class="page-name">{{ getRouteTitle }}</h1>
   </div>
 
   <!-- Avatar e Dados do Usuário -->
   <div class="user-info">
-    <img [src]="avatarUrl" alt="Avatar" class="avatar" />
+    <div class="avatar-circle">{{ getAvatarLetter() }}</div>
     <div class="user-text">
       <span class="user-name">{{ nomeUsuario }}</span>
       <span class="user-email">{{ emailUsuario }}</span>
