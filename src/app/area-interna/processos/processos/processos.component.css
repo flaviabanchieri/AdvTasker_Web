@@ -52,13 +52,13 @@
         }
     }
 
-    .lista-clientes {
+    .lista-processos {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
         gap: 20px;
     }
 
-    .cliente-card {
+    .processo-card {
         background: #fff;
         border-radius: 12px;
         padding: 20px;

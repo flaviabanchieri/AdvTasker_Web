@@ -1,3 +1,4 @@
 export const ProcessoUrl = {
-    ListarProcessos: "processo"
+    ListarProcessos: "processo",
+    Cadastrar: "processo"
 }

@@ -3,6 +3,10 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { ApiService } from '../../../core/services/api.service';
+import { ProcessoUrl } from '../../../core/url/processo-url';
+import { FASES_PROCESSO } from '../../../core/interfaces/faseProcesso';
 
 @Component({
   selector: 'app-processo-cadastro',
@@ -13,27 +17,27 @@ import { Router } from '@angular/router';
 })
 export class ProcessoCadastroComponent implements OnInit {
   formProcesso!: FormGroup;
-  fases = ['Inicial', 'Instrução', 'Recursal', 'Execução'];
-classesProcesso = [
-  { id: 1, nome: 'Cível' },
-  { id: 2, nome: 'Criminal' },
-  { id: 3, nome: 'Trabalhista' },
-  { id: 4, nome: 'Família' },
-  // ...ou buscar do backend
-];
+  fases = FASES_PROCESSO;
+  classesProcesso = [
+    { id: 1, nome: 'Cível' },
+    { id: 2, nome: 'Criminal' },
+    { id: 3, nome: 'Trabalhista' },
+    { id: 4, nome: 'Família' },
+    // ...ou buscar do backend
+  ];
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private fb: FormBuilder, private router: Router, private toastrService: ToastrService, private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.formProcesso = this.fb.group({
-      numeroProcesso: ['', Validators.required],
+      NumeroProcesso: ['', Validators.required],
       vara: [''],
       comarca: [''],
       estado: [''],
-      faseAtual: ['', Validators.required],
+      faseAtual: [null, Validators.required],
       classeId: [null],
       area: [null],
-      valorCausa: [''],
+      valorCausa: [null],
       justicaGratuita: [false],
       segredoJustica: [false],
       tutelaAntecipada: [false],
@@ -41,17 +45,37 @@ classesProcesso = [
       juizResponsavel: [''],
       dataDistribuicao: [null],
       dataEntrada: [null],
-      linkConsulta:[''],
+      linkConsulta: [''],
       observacoes: ['']
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.formProcesso.valid) {
-      console.log('Processo salvo:', this.formProcesso.value);
-      // aqui você chama o service da API
+      const dto = {
+        ...this.formProcesso.value,
+        valorCausa: this.formProcesso.value.valorCausa
+          ? parseFloat(this.formProcesso.value.valorCausa)
+          : null
+      };
+
+      this.apiService.postItems(ProcessoUrl.Cadastrar, dto).subscribe({
+        next: (response: any) => {
+          this.toastrService.success(response.message);
+          this.router.navigate([`/processo/${response.data}`]);
+        },
+        error: (err) => {
+          console.log(err)
+          if (err.status === 400 && err.error?.message) {
+            this.toastrService.warning(err.error.message); // Mostra: "Já existe um proc com este documento."
+          } else {
+            this.toastrService.warning('Ocorreu um erro inesperado.');
+          }
+        }
+      });
     }
   }
+
 
   cancelar() {
     this.formProcesso.reset();

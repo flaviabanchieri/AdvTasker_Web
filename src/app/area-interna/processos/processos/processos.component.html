@@ -77,15 +77,15 @@
       @for (processo of processos; track processo) {
         <div class="processo-card">
           <div (click)="irParaProcesso(processo)" class="processo-info">
-            <h2>{{ processo.NumeroProcesso }}</h2>
-            <p>{{ processo.Partes }}</p>
-            <p>{{ processo.Vara }}</p>
-            <p>{{ processo.Comarca }} / {{processo.Estado}}</p>
+            <h2>{{ processo.numeroProcesso }}</h2>
+            <p>{{ processo.partes }}</p>
+            <p>{{ processo.vara }}</p>
+            <p>{{ processo.comarca }} / {{processo.estado}}</p>
             <div class="card-footer">
               <div class="status">
-                <span class="badge">{{ processo.Classe }}</span>
-                <span class="tag" [ngClass]="statusClass(processo.FaseAtual)">
-                  {{ processo.FaseAtual }}
+                <span class="badge">{{ processo.classe }}</span>
+                <span class="tag" [ngClass]="statusClass(processo.faseAtual)">
+                  {{ getNomeFase(processo.faseAtual) }}
                 </span>
               </div>
               <button class="btn-detalhes">Detalhes</button>

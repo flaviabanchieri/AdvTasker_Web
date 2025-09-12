@@ -7,6 +7,7 @@ import { ApiService } from '../../../core/services/api.service';
 import { ResultadoBusca } from '../../../core/models/resultado-busca';
 import { ProcessoListagem } from '../../../core/models/processo/processo-listagem';
 import { ProcessoUrl } from '../../../core/url/processo-url';
+import { FASES_PROCESSO } from '../../../core/interfaces/faseProcesso';
 
 @Component({
   selector: 'app-processos',
@@ -20,9 +21,11 @@ import { ProcessoUrl } from '../../../core/url/processo-url';
 })
 export class ProcessosComponent implements OnInit {
   formFiltro!: FormGroup;
+  fases = FASES_PROCESSO;
   processos: ProcessoListagem[] = [];
   mostrarAvancado = false;
   listaClasseProcesso: { id: number; nome: string }[] = [];
+
 
   constructor(private router: Router, private apiService: ApiService, private fb: FormBuilder) {
 
@@ -74,7 +77,7 @@ export class ProcessosComponent implements OnInit {
     });
   }
 
-  criarProcesso(){
+  criarProcesso() {
     this.router.navigate([`/processos/criar`]);
   }
   obterProcessos() {
@@ -82,6 +85,7 @@ export class ProcessosComponent implements OnInit {
     this.apiService.getFiltro<ResultadoBusca<ProcessoListagem>>(ProcessoUrl.ListarProcessos, filtros).subscribe((processos: ResultadoBusca<ProcessoListagem>) => {
       console.log('Processos filtrados:', processos);
       this.processos = processos.items;
+      console.log(this.processos)
     });
   }
 
@@ -94,12 +98,17 @@ export class ProcessosComponent implements OnInit {
     }
   }
 
+  getNomeFase(faseId: number): string {
+    const fase = FASES_PROCESSO.find(f => f.id === faseId);
+    return fase ? fase.nome : 'Fase';
+  }
+
   irParaProcesso(processo: ProcessoListagem) {
     this.router.navigate(['processo', processo.id]);
 
   }
 
-  limparFiltros(){
+  limparFiltros() {
     this.formFiltro.reset();
     this.obterProcessos();
   }
